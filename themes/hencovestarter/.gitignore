@@ -50,3 +50,4 @@ Thumbs.db
 *.wmv
 
 .npmrc
+_build/
