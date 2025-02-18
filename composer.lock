@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f0e2c47c47e663a7e07525dbac0dadc",
+    "content-hash": "a3c7e7dca3e7f466f1a45c777c7a4667",
     "packages": [
         {
             "name": "cedaro/satispress",
@@ -513,6 +513,131 @@
                 "source": "https://github.com/php-fig/log/tree/2.0.0"
             },
             "time": "2021-07-14T16:41:46+00:00"
+        },
+        {
+            "name": "satispress/kadence-blocks-pro",
+            "version": "2.6.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/kadence-blocks-pro/2.6.3",
+                "shasum": "74893190a5464ecbc79441d397de07f9404980a0"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Kadence WP",
+                    "homepage": "https://www.kadencewp.com/"
+                }
+            ],
+            "description": "Extends Kadence Blocks with powerful extras that make it possible to create beautiful content in the WordPress Block Editor",
+            "homepage": "https://www.kadencewp.com/product/kadence-gutenberg-blocks/"
+        },
+        {
+            "name": "satispress/kadence-custom-fonts",
+            "version": "1.1.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/kadence-custom-fonts/1.1.5",
+                "shasum": "968f047d69a3a91cb8bc7b872a37896f37718591"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "Kadence WP",
+                    "homepage": "http://kadencewp.com/"
+                }
+            ],
+            "description": "A simple plugin to add custom fonts for Kadence WP"
+        },
+        {
+            "name": "satispress/wpforms",
+            "version": "1.9.3.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/wpforms/1.9.3.2",
+                "shasum": "1da728d8cb201bf915359c92e726b31d6f820222"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "WPForms",
+                    "homepage": "https://wpforms.com"
+                }
+            ],
+            "description": "Beginner friendly WordPress contact form plugin. Use our Drag & Drop form builder to create your WordPress forms.",
+            "homepage": "https://wpforms.com"
+        },
+        {
+            "name": "satispress/wpforms-hubspot",
+            "version": "1.3.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/wpforms-hubspot/1.3.0",
+                "shasum": "f74c2150cab266495e754e40d74a5dc8db2e3a97"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "WPForms",
+                    "homepage": "https://wpforms.com"
+                }
+            ],
+            "description": "HubSpot integration with WPForms.",
+            "homepage": "https://wpforms.com"
+        },
+        {
+            "name": "satispress/wpforms-lead-forms",
+            "version": "1.5.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/wpforms-lead-forms/1.5.0",
+                "shasum": "10e3d81bbf9d9625dc4d4f71f7d06b43ea7bd219"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "WPForms",
+                    "homepage": "https://wpforms.com"
+                }
+            ],
+            "description": "Create Lead Forms with WPForms.",
+            "homepage": "https://wpforms.com"
+        },
+        {
+            "name": "satispress/wpforms-user-registration",
+            "version": "2.7.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.hencove.com/satispress/wpforms-user-registration/2.7.0",
+                "shasum": "9aaa02d0ce98f3a53d1ed2094d2def5298441412"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "WPForms",
+                    "homepage": "https://wpforms.com"
+                }
+            ],
+            "description": "User Registration, Login and Reset Password forms with WPForms.",
+            "homepage": "https://wpforms.com"
         },
         {
             "name": "wpackagist-plugin/akismet",

@@ -3,59 +3,67 @@
    "description": "Hencove Website",
    "license": "GPL-2.0+",
    "type": "project",
-   "repositories": [
-	   {
-		   "type":"composer",
-		   "url":"https://wpackagist.org",
-		   "only": [
-			   "wpackagist-plugin/*",
-			   "wpackagist-theme/*"
-		   ]
-	   },
-	   
-	   {
-		   "type":"composer",
-		   "url":"https://connect.advancedcustomfields.com"
-	   }
-   ],
+   "repositories": {
+      "satispress": {
+         "type": "composer",
+         "url": "https://www.hencove.com/satispress/"
+      },
+      "0": {
+         "type": "composer",
+         "url": "https://wpackagist.org",
+         "only": [
+            "wpackagist-plugin/*",
+            "wpackagist-theme/*"
+         ]
+      },
+      "1": {
+         "type": "composer",
+         "url": "https://connect.advancedcustomfields.com"
+      }
+   },
    "require-dev": {
-	   "php-stubs/acf-pro-stubs": "^6.0"
+      "php-stubs/acf-pro-stubs": "^6.0"
    },
    "require": {
-	   "wpackagist-theme/kadence": "*",
-	   "wpackagist-plugin/akismet": "*",
-	   "wpackagist-plugin/breadcrumb-navxt": "*",
-	   "wpackagist-plugin/create-block-theme": "*",
-	   "wpackagist-plugin/filebird": "*",
-	   "wpackagist-plugin/google-site-kit": "*",
-	   "wpackagist-plugin/kadence-blocks": "*",
-	   "wpackagist-plugin/leadin": "*",
-	   "wpackagist-plugin/members": "*",
-	   "wpackagist-plugin/microsoft-clarity": "*",
-	   "wpackagist-plugin/redirection": "*",
-	   "wpackagist-plugin/safe-svg": "*",
-	   "wpackagist-plugin/wordfence": "*",
-	   "wpackagist-plugin/wordpress-importer": "*",
-	   "wpackagist-plugin/wordpress-seo": "*",
-	   "wpackagist-plugin/wp-mail-smtp": "*",
-	   "wpackagist-plugin/wp-optimize": "*",
-	   "wpackagist-plugin/leadin": "*",
-       "wpengine/advanced-custom-fields-pro": "*",
-	   "cedaro/satispress": "*"
+      "wpackagist-theme/kadence": "*",
+      "wpackagist-plugin/akismet": "*",
+      "wpackagist-plugin/breadcrumb-navxt": "*",
+      "wpackagist-plugin/create-block-theme": "*",
+      "wpackagist-plugin/filebird": "*",
+      "wpackagist-plugin/google-site-kit": "*",
+      "wpackagist-plugin/kadence-blocks": "*",
+      "wpackagist-plugin/leadin": "*",
+      "wpackagist-plugin/members": "*",
+      "wpackagist-plugin/microsoft-clarity": "*",
+      "wpackagist-plugin/redirection": "*",
+      "wpackagist-plugin/safe-svg": "*",
+      "wpackagist-plugin/wordfence": "*",
+      "wpackagist-plugin/wordpress-importer": "*",
+      "wpackagist-plugin/wordpress-seo": "*",
+      "wpackagist-plugin/wp-mail-smtp": "*",
+      "wpackagist-plugin/wp-optimize": "*",
+      "satispress/kadence-blocks-pro": "*",
+      "satispress/kadence-custom-fonts": "*",
+      "satispress/wpforms": "*",
+      "satispress/wpforms-hubspot": "*",
+      "satispress/wpforms-lead-forms": "*",
+      "satispress/wpforms-user-registration": "*",
+      "wpengine/advanced-custom-fields-pro": "*",
+      "cedaro/satispress": "*"
    },
    "extra": {
-	   "installer-paths": {
-		   "plugins/{$name}/": [
-			   "type:wordpress-plugin"
-		   ],
-		   "themes/{$name}/": [
-			   "type:wordpress-theme"
-		   ]
-	   }
+      "installer-paths": {
+         "plugins/{$name}/": [
+            "type:wordpress-plugin"
+         ],
+         "themes/{$name}/": [
+            "type:wordpress-theme"
+         ]
+      }
    },
    "config": {
-	   "allow-plugins": {
-		   "composer/installers": true
-	   }
+      "allow-plugins": {
+         "composer/installers": true
+      }
    }
 }
