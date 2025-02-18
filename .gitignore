@@ -10,7 +10,7 @@
 # Ignore all themes
 /themes/*
 # DO NOT ignore this theme!
-!/themes/demo-theme
+!/themes/hencovestarter
 
 #---------------------------
 # WordPress plugins
@@ -18,7 +18,8 @@
 # Ignore all plugins
 /plugins/*
 # DO NOT ignore this plugin!
-!/plugins/demo-plugin
+!/plugins/hencurves
+!/plugins/hencurves-anchor
 
 #---------------------------
 # WP MU plugins: these are
