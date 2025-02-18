@@ -63,6 +63,11 @@ advanced-cache.php
 /wflogs/
 
 #---------------------------
+# npm files
+#---------------------------
+.npmrc
+
+#---------------------------
 # large/disallowed file types
 # a CDN should be used for these
 #---------------------------
