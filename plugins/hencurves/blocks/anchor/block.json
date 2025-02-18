@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "acf/hencurves-anchor",
+	"title": "Hencurves Anchor",
+	"description": "",
+	"category": "design",
+	"icon": "sticky",
+	"apiVersion": 2,
+	"keywords": [""],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "block-anchor-template.php"
+	},
+	"styles": [{ "name": "default", "label": "Default", "isDefault": true }],
+	"supports": {
+
+		"jsx": true,
+		"fullHeight": false,
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {}
+}

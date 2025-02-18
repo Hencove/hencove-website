@@ -1,0 +1,107 @@
+/* stylesheet */
+@use "./libs/" as libs;
+//
+//
+
+.hencurve {
+	.svgContainer {
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: -1;
+
+		clipPath path {
+			stroke: none !important;
+		}
+
+		path#blurStroke {
+			filter: blur(1.5px);
+			stroke: var(--wp--preset--color--secondary) !important;
+			stroke-width: 32;
+		}
+
+		path {
+			fill: none !important;
+		}
+
+		#unflip .strokePath,
+		#unflip > .curvePath,
+		#flipInverse > .curvePath,
+		#unflipInverse > .curvePath {
+			opacity: 0;
+		}
+	}
+}
+
+//
+@include libs.media(">desktop") {
+	//
+	//
+	//
+
+	.hencurve {
+		position: relative;
+		margin-block-start: 0 !important;
+		min-height: 200px;
+
+		.textContainer {
+			opacity: 0;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+
+			h1 {
+				@include libs.font-size(8rem);
+				
+				margin: 0;
+				position: absolute;
+
+			
+				&#el1,
+				&#el3 {
+					right: 65%;
+					text-align: right;
+				}
+				&#el2,
+				&#el4 {
+					text-align: left;
+					left: 50%;
+				}
+			}
+		}
+
+		.textContainer:has(#el1),
+		.textContainer:has(#el4) {
+			clip-path: url(#clipInverse);
+		}
+		.textContainer:has(#el2),
+		.textContainer:has(#el3) {
+			clip-path: url(#clipFlip);
+		}
+	}
+}
+@include libs.media("<=desktop") {
+	.hencurve {
+		.svgContainer {
+			top: unset;
+		}
+
+		.textContainer {
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: center;
+			gap: 4%;
+
+			h1 {
+				@include libs.font-size(6rem);
+			}
+			
+		}
+	}
+}

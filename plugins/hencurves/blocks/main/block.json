@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "acf/hencurves",
+	"title": "Hencurves",
+	"description": "A custom Hencurves solution",
+	"category": "design",
+	"icon": "art",
+	"apiVersion": 2,
+	"keywords": [""],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "block-template.php"
+	},
+	"styles": [{ "name": "default", "label": "Default", "isDefault": true }],
+	"supports": {
+		"align": ["wide", "full"],
+		"anchor": true,
+		"alignContent": true,
+		"alignText": true,
+		"jsx": true,
+		"fullHeight": false,
+		"color": {
+			"text": true,
+			"background": false,
+			"enableContrastChecker": false
+		}
+	},
+	"attributes": {},
+	"style": ["file:../../_build/css/styles.css"],
+	"viewScript": ["file:../../_build/js/scripts.js"]
+}
