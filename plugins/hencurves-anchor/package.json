@@ -1,0 +1,23 @@
+{
+	"name": "hencurves-anchor",
+	"version": "1.0.0",
+	"description": "This README would normally document whatever steps are necessary to get your application up and running.",
+	"main": "webpack.mix.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"clean-webpack-plugin": "^4.0.0",
+		"laravel-mix": "^6.0.49",
+		"laravel-mix-clean": "^0.1.0",
+		"sass": "^1.79.5",
+		"sass-loader": "^12.6.0"
+	},
+	"dependencies": {
+		"gsap": "npm:@gsap/shockingly@^3.12.5",
+		"@svgdotjs/svg.js": "^3.2.4"
+	}
+}

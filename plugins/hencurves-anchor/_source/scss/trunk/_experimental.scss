@@ -1,0 +1,25 @@
+//
+.hencurve-anchors-container {
+	position: relative;
+	//
+	.hencurve-anchors-svg {
+		position: absolute;
+		pointer-events: none;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		max-width: unset;
+		overflow: visible;
+		margin: 0;
+		margin-block-start: 0;
+		margin-block-end: 0;
+	}
+	//
+	//
+	.hencurve-anchor {
+		display: block;
+		width: 100%;
+		height: 4px;
+	}
+}
