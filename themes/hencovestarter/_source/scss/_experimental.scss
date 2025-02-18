@@ -1,0 +1,67 @@
+//
+//
+@use "./libs/" as libs;
+
+// collapse the "gutters" we added
+@include libs.media("<desktop") {
+	*[style*="padding-right:var(--wp--preset--spacing--xx-large)"],
+	*[style*="padding-right: var(--wp--preset--spacing--xx-large)"],
+	*[style*="padding-right:var(--wp--preset--spacing--xxx-large)"] {
+		padding-right: 32px !important;
+	}
+	*[style*="padding-left:var(--wp--preset--spacing--xx-large)"],
+	*[style*="padding-left: var(--wp--preset--spacing--xx-large)"],
+	*[style*="padding-left:var(--wp--preset--spacing--xxx-large)"] {
+		padding-left: 32px !important;
+	}
+}
+
+.divider-svg {
+	max-width: 100%;
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+
+.is-contact-links {
+	a {
+		display: inline-block;
+		text-decoration: none;
+		@include libs.accentUnderline();
+		&:hover,
+		&:focus {
+			&::before {
+				width: 100%;
+			}
+		}
+	}
+}
+//
+//
+//
+//? cursor change for text links
+//? to make this work, we need to make sure the svg is encoded properly
+p:not(.is-the-menu-trigger) a,
+footer .kb-nav-link-content {
+	@include libs.custom-cursor;
+	color: var(--wp--preset--color--contrast);
+
+	// &:not([href*="hencove.com"]) {
+	// 	@include libs.ext-custom-cursor;
+	// }
+	&[href^="tel:"],
+	&[target="_blank"] {
+		@include libs.ext-custom-cursor;
+	}
+	// Apply a specific custom cursor for mailto: links
+	&[href^="mailto:"] {
+		@include libs.mailto-custom-cursor;
+	}
+}
+
+// stop admin bar space from being there
+@include libs.media("<tablet"){
+	html {
+		margin-top: 0 !important;
+	}
+}

@@ -1,0 +1,70 @@
+@use "./libs/" as libs;
+//
+//
+//
+@include libs.media("<=desktop") {
+	:root {
+		--global-content-edge-padding: 16px !important;
+		// --wp--preset--spacing--x-large: 32px !important;
+		// --wp--preset--spacing--xx-large: 32px !important;
+		--global-kb-spacing-4xl: 32px !important;
+	}
+}
+
+
+// ? debugging kadence blocks issues when not using kadence theme
+:root {
+	--kb-stuck-header-bg: transparent !important;
+	--kb-stuck-header-bg: var(--wp--preset--color--base) !important;
+}
+
+//
+.wp-site-blocks {
+	.kb-section-is-sticky {
+		position: sticky;
+		top: var(--site--header--height);
+		z-index: 2;
+	}
+	.kb-section-is-sticky > .kt-inside-inner-col {
+		position: unset;
+		top: unset;
+	}
+}
+
+.kb-advanced-heading-link {
+	> * {
+		&:hover {
+			color: inherit !important;
+		}
+	}
+}
+
+
+
+a.kb-nav-link-content,
+a.hls-hover_underline {
+	@include libs.accentUnderline();
+	text-decoration: none !important;
+	display: inline-block !important;
+	width: auto !important;
+
+	&::before {
+		bottom: -4px;
+	}
+
+	svg {
+		transition-duration: 0.5s;
+	}
+
+	&:hover,
+	&:focus {
+		text-decoration: none !important;
+		&::before {
+			width: 100%;
+		}
+		svg {
+			transform: translateX(10px);
+			transition-duration: 0.5s;
+		}
+	}
+}

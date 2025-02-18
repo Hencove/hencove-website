@@ -1,0 +1,233 @@
+@use "../libs/" as libs;
+
+body.page-id-78 {
+	//? About Us hero
+	//
+	//
+
+	//
+
+	.is-team-grid-outer-container {
+	}
+
+	.is-about-us-hero {
+		.has-nested-images {
+			margin-block-start: unset;
+		}
+		//
+		$height: 100px;
+
+		@include libs.media("<=tablet") {
+			$height: 80px;
+			.wp-block-spacer {
+				height: 100px !important;
+			}
+		}
+		@include libs.media("<=phone") {
+			$height: 120px;
+		}
+
+		position: relative;
+		overflow: hidden;
+		// > .kt-row-column-wrap {
+		// }
+		&::after {
+			// padding-bottom: $height;
+			content: "";
+			width: 100%;
+			position: absolute;
+			height: $height;
+			bottom: 0;
+			left: 0;
+			background-color: var(--wp--preset--color--base);
+			//
+			@include libs.media("<=tablet") {
+				height: 40px !important;
+			}
+		}
+		//
+		//
+		//
+		//
+
+		// adjust image base css props to be more workable
+		figure.wp-block-gallery figure.wp-block-image {
+			img {
+				object-fit: contain !important;
+			}
+			margin: 0 !important;
+			width: auto !important;
+			position: absolute;
+			bottom: 0;
+		}
+
+		// adjust image positions to match mockup
+
+		figure.wp-block-gallery figure.wp-block-image {
+			z-index: 1;
+
+			@include libs.media(">=desktop") {
+				// blob
+				&:nth-child(1) {
+					left: -32px;
+					// height: 90%;
+					z-index: 5;
+					width: clamp(250px, 30vw, 460px) !important;
+				}
+				// achidna
+				&:nth-child(2) {
+					left: 50%;
+					transform: translate(-30%, -30%) scaleX(-1);
+					transition: all 0.3s ease-in-out;
+					width: clamp(150px, 30vw, 300px) !important;
+				}
+				// bee
+				&:nth-child(3) {
+					width: clamp(75px, 33vw, 150px) !important;
+				}
+				// liger
+				&:nth-child(4) {
+					overflow: hidden;
+					right: 0;
+					height: 100%;
+					bottom: 60px;
+					transition: all 0.3s ease-in-out;
+					width: clamp(450px, 45vw, 700px) !important;
+					img {
+						transform: translateX(33%);
+						height: 100%;
+						object-fit: contain;
+						object-position: bottom center;
+						// object-fit: cover;
+					}
+				}
+			}
+			@include libs.media("<desktop") {
+				//blob
+				&:nth-child(1) {
+					left: -32px;
+					// height: 90%;
+					z-index: 5;
+					width: clamp(200px, 30vw, 300px) !important;
+				}
+				// achidna
+				&:nth-child(2) {
+					left: 50%;
+					transform: translate(-30%, -30%) scaleX(-1);
+					transition: all 0.3s ease-in-out;
+					width: clamp(150px, 30vw, 300px) !important;
+				}
+				// bee
+				&:nth-child(3) {
+					width: clamp(50px, 33vw, 100px) !important;
+					top: 0;
+					transform: translateY(25%);
+				}
+				// liger
+				&:nth-child(4) {
+					overflow: hidden;
+					right: 0;
+					height: 100%;
+					bottom: 0;
+					transition: all 0.3s ease-in-out;
+					width: clamp(250px, 45vw, 450px) !important;
+					img {
+						transform: translateX(124px);
+						height: 100%;
+						object-fit: contain;
+						object-position: bottom center;
+						// object-fit: cover;
+					}
+				}
+			}
+		}
+		/*
+		*
+		* Linework Styles
+		*
+		*/
+		.hencurve-anchors-container {
+			svg.hencurve-anchors-svg {
+				path {
+					stroke: var(--wp--preset--color--custom-accent-1-dark);
+				}
+			}
+		}
+	}
+
+	// ? bottom of about page needed tweak
+	.is-job-opening {
+		a {
+			> p {
+				margin-block-start: unset;
+			}
+		}
+	}
+
+	li.hc-our-team {
+		&.no-clip {
+			.kb-img {
+				opacity: 1 !important;
+			}
+		}
+		video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+		}
+
+		figure {
+			overflow: hidden;
+			.kb-img {
+				opacity: 1;
+			}
+			.teamClip {
+				opacity: 0;
+			}
+		}
+
+		//
+		//
+		@include libs.media(">desktop") {
+			&:hover,
+			&:focus {
+				.kb-img {
+					opacity: 0;
+				}
+				.teamClip {
+					opacity: 1;
+				}
+			}
+		}
+		//
+		//
+		@include libs.media("<=desktop") {
+			figure {
+				.kb-img {
+					opacity: 1;
+				}
+				.teamClip {
+					opacity: 0;
+					display: none;
+				}
+			}
+		}
+	}
+	/*
+	*
+	* Linework Styles
+	*
+	*/
+	.is-make-magic-container {
+		svg.is-motion-horizontal-line {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			width: 100%;
+			max-width: unset;
+		}
+	}
+}

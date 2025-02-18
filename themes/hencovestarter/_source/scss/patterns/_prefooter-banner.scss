@@ -1,0 +1,48 @@
+.marketing-pre-footer-banner {
+	.wp-block-kadence-tabs {
+		&.is-initially-hidden {
+			ul.kt-tabs-title-list {
+				// adjust the buttons back to base
+				li.kt-title-item {
+					opacity: 1 !important;
+					&:not(:hover) {
+						a.kt-tab-title {
+							color: unset !important;
+							background-color: unset !important;
+						}
+					}
+				}
+			}
+
+			// hide the normally active tab
+			.wp-block-kadence-tab {
+				&[aria-hidden="false"] {
+					display: none !important;
+				}
+			}
+		}
+	}
+}
+//?
+.marketing-pre-footer-banner {
+	.kt-tabs-content-wrap {
+		.wp-block-kadence-tab {
+			// display: none;
+		}
+	}
+	.kt-title-item {
+		.kt-tab-title {
+			border-radius: 10px !important;
+			&:focus {
+				outline-color: var(--wp--preset--color--custom-accent-1-light);
+			}
+		}
+	}
+	.kt-tab-title-inactive {
+		opacity: 0.2;
+		transition: 0.2s all ease-in-out;
+		&:hover {
+			opacity: 1;
+		}
+	}
+}

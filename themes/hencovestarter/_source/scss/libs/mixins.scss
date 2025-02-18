@@ -1,0 +1,138 @@
+@use "sass:math";
+//? Custom arrow cursor on hover
+@mixin custom-cursor {
+	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='15' viewBox='0 0 26 15' fill='none'%3E%3Cpath d='M25.7071 8.20711C26.0976 7.81658 26.0976 7.18342 25.7071 6.7929L19.3431 0.428934C18.9526 0.0384095 18.3195 0.0384094 17.9289 0.428934C17.5384 0.819458 17.5384 1.45262 17.9289 1.84315L23.5858 7.5L17.9289 13.1569C17.5384 13.5474 17.5384 14.1805 17.9289 14.5711C18.3195 14.9616 18.9526 14.9616 19.3431 14.5711L25.7071 8.20711ZM-8.74228e-08 8.5L25 8.5L25 6.5L8.74228e-08 6.5L-8.74228e-08 8.5Z' fill='%23262626'/%3E%3C/svg%3E")
+			0 0,
+		auto !important;
+}
+@mixin ext-custom-cursor {
+	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19.38477' height='19.38477' viewBox='4.59619 -13.37436 19.38477 19.38477' fill='none'%3E%3Cpath d='M23.98097 -12.37436 23.98095 -12.92663 23.53323 -13.37434 22.98097 -13.37436 13.98094 -13.37434 13.42867 -13.37435 12.98100 -12.92668 12.98095 -12.37434 12.98097 -11.82208 13.42868 -11.37436 13.98095 -11.37434 21.98098 -11.37438 21.98098 -3.37431 21.98098 -2.82206 22.42865 -2.37439 22.98097 -2.37432 23.53329 -2.37439 23.98096 -2.82206 23.98096 -3.37431 23.98097 -12.37436 6.01041 6.01041 23.68808 -11.66726 22.27386 -13.08148 4.59619 4.59619 6.01041 6.01041' fill='%23262626'/%3E%3C/svg%3E")
+			0 0,
+		auto !important;
+}
+@mixin mailto-custom-cursor {
+	cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='30' viewBox='0 0 29 30' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21.8848 8.54593L5.91421 24.5165L4.5 23.1023L20.4706 7.13173L22.1777 5.42462L23.5919 6.83884L21.8848 8.54593Z' fill='%23262626'/%3E%3Cline x1='15.4602' y1='19.9204' x2='11.2175' y2='24.163' stroke='%23262626' stroke-width='2'/%3E%3Cline x1='9.09614' y1='13.5563' x2='4.8535' y2='17.799' stroke='%23262626' stroke-width='2'/%3E%3Cpath d='M22.8285 6.18793L19.0226 19.2402L9.77618 9.99381L22.8285 6.18793Z' stroke='%23262626' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E")
+			15 15,
+		auto !important;
+}
+
+@mixin buttonHoverStyle() {
+	border: 2px solid var(--wp--preset--color--contrast);
+	color: var(--wp--preset--color--contrast);
+	background-color: transparent;
+}
+@mixin outlineButtonHoverStyle() {
+	border: 2px solid transparent !important;
+	color: var(--wp--preset--color--base) !important;
+	background-color: var(--wp--preset--color--contrast) !important;
+}
+
+@mixin inverseHover() {
+	border: 2px solid var(--wp--preset--color--base) !important;
+	color: var(--wp--preset--color--base) !important;
+	background-color: transparent !important;
+}
+@mixin outlineInverseButtonHoverStyle() {
+	border: 2px solid transparent !important;
+	color: var(--wp--preset--color--contrast) !important;
+	background-color: var(--wp--preset--color--base) !important;
+}
+
+@mixin formSubmitButton() {
+	border: 1px solid var(--wp--preset--color--contrast) !important;
+	border-radius: 10px !important;
+	color: var(--wp--preset--color--contrast) !important;
+	background: none !important;
+	background-color: transparent !important;
+}
+@mixin formSubmitButton_Hover() {
+	border: 1px solid transparent !important;
+	border-radius: 10px !important;
+	color: var(--wp--preset--color--base) !important;
+	background: none !important;
+	background-color: var(--wp--preset--color--contrast) !important;
+}
+//
+//
+//
+@mixin accentUnderline($el: before, $h: 2px, $d: right) {
+	position: relative;
+	padding-bottom: #{$h}; // ? enable to add padding for the underline
+
+	&:#{$el} {
+		content: "";
+		display: block;
+		width: 0;
+		height: 0;
+		position: absolute;
+		border-bottom: $h solid var(--wp--preset--color--contrast);
+		bottom: -#{$h};
+
+		transition: all 0.2s ease-in-out;
+
+		@if $d==right {
+			left: 0;
+			right: auto;
+		} @else if $d==left {
+			right: 0;
+			left: auto;
+		}
+	}
+}
+
+@mixin boxShadow($depth) {
+	@if ($depth==0) {
+		box-shadow: 0px 1px 2px transparent;
+	}
+	@if ($depth==1) {
+		box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+	}
+	@if ($depth==2) {
+		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+	}
+	@if ($depth==3) {
+		box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+	}
+	@if ($depth==4) {
+		box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
+			0px 4px 6px -2px rgba(0, 0, 0, 0.05);
+	}
+	@if ($depth==5) {
+		box-shadow: 0px 20px 25px -5px rgba(0, 0, 0, 0.1),
+			0px 10px 10px -5px rgba(0, 0, 0, 0.04);
+	}
+	@if ($depth==6) {
+		box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+	}
+}
+
+@mixin aspect-ratio($w, $h) {
+	position: relative;
+
+	&:before {
+		display: block;
+		content: "";
+		width: 100%;
+		padding-top: (math.div($h, $w) * 100%);
+	}
+}
+
+@mixin figure-image-aspect-ratio($w, $h) {
+	position: relative;
+
+	&:before {
+		display: block;
+		content: "";
+		width: 100%;
+		padding-top: (math.div($h, $w) * 100%);
+	}
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+}

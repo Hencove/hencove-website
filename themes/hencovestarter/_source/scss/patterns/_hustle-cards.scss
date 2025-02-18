@@ -1,0 +1,51 @@
+//
+//
+//
+//
+.is-hustle-container {
+	//
+	//
+	//
+	.is-make-magic-container {
+		margin-bottom: 240px;
+
+		> div {
+			padding-bottom: 0px !important;
+		}
+	}
+
+	//
+	//
+	//
+	.has-the-hustle-cards {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		margin-top: 0;
+
+		//
+		//
+		//
+		.is-the-hustle-card {
+			min-height: 320px;
+			display: flex;
+			flex-flow: column nowrap;
+			justify-content: center;
+			margin: 0;
+			position: relative;
+			z-index: 10;
+			//
+			//
+			&:not(:first-child) {
+				position: absolute;
+				width: 100%;
+				bottom: 0;
+				left: 0;
+			}
+		}
+	}
+	.is-magic-text {
+		opacity: 0;
+	}
+}

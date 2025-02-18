@@ -1,0 +1,26 @@
+@use "./libs/" as libs;
+//
+//
+.site-footer {
+	position: relative;
+	.kb-nav-link-content,
+	.is-contact-links > p {
+		// padding: 8px;
+		padding: 0px !important;
+		padding-top: 8px !important;
+		padding-bottom: 2px !important;
+		margin: 0;
+	}
+
+	a {
+		display: inline-block;
+		text-decoration: none;
+		@include libs.accentUnderline();
+		&:hover,
+		&:focus {
+			&::before {
+				width: 100%;
+			}
+		}
+	}
+}

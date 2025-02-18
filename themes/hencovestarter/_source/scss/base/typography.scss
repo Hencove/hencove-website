@@ -1,0 +1,15 @@
+@use "../libs/" as libs;
+
+:root {
+    @include libs.rfs(0.9rem, --wp--preset--font-size--x-small);
+    @include libs.rfs(1rem, --wp--preset--font-size--small);
+    @include libs.rfs(1.1rem, --wp--preset--font-size--medium);
+    @include libs.rfs(1.5rem, --wp--preset--font-size--large);
+    @include libs.rfs(1.8rem, --wp--preset--font-size--x-large);
+    @include libs.rfs(2rem, --wp--preset--font-size--max-36);
+    @include libs.rfs(3rem, --wp--preset--font-size--max-40);
+    @include libs.rfs(4rem, --wp--preset--font-size--max-60);
+    @include libs.rfs(5rem, --wp--preset--font-size--max-72);
+    @include libs.rfs(6rem, --wp--preset--font-size--max-96);
+    @include libs.rfs(8rem, --wp--preset--font-size--max-128);
+}

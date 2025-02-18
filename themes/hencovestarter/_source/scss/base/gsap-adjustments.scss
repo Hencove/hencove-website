@@ -1,0 +1,27 @@
+
+//
+// ?	fix pin-spacer being constrained by 'is-layout-constrained'
+//
+.pin-spacer {
+	max-width: unset !important;
+}
+//
+// ? 	fix pin-spacer interrupting 'has-global-padding'
+//
+main.wp-block-group.has-global-padding {
+	> .pin-spacer {
+		margin: 0 !important;
+		margin-left: calc(-1 * var(--wp--style--root--padding-left)) !important;
+		margin-right: calc(-1 * var(--wp--style--root--padding-right)) !important;
+		> .alignfull {
+			width: 100% !important;
+			max-width: unset !important;
+		}
+	}
+}
+
+// maybe fixed stuff?
+main:has(> .pin-spacer) {
+	padding-left: var(--wp--style--root--padding-left) !important;
+	padding-right: var(--wp--style--root--padding-right) !important;
+}

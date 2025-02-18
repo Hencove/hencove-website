@@ -1,0 +1,132 @@
+@use "../libs/" as libs;
+@use "nav";
+@use "kb-off-canvas";
+@use "kb-header";
+
+//
+//
+body.admin-bar {
+	// nudge the header
+	header.site-header {
+		top: 32px;
+		@include libs.media("<=782px") {
+			top: 0;
+		}
+	}
+
+	// hide the adminbar on the front end once it switches to icons
+	@include libs.media("<=782px") {
+		#wpadminbar {
+			display: none !important;
+		}
+	}
+}
+
+header.site-header {
+	.wp-block-site-logo {
+		position: relative;
+		max-height: 100%;
+		&:after {
+			content: "";
+			position: absolute;
+			top: 0;
+			right: 0;
+			height: 100%;
+			width: 0;
+			background-color: var(--wp--preset--color--base);
+			z-index: 1;
+			transition: all 0.6s libs.$bezier;
+		}
+	}
+}
+body.scroll-is-past-header {
+	--site--header--height: 64px;
+
+	header.site-header {
+		.wp-block-site-logo {
+			&:after {
+				width: calc(100% - 42px);
+			}
+		}
+	}
+}
+
+//
+//
+//
+header.site-header {
+	div[style*="min-height:96px;"] {
+		height: var(--site--header--height) !important;
+		min-height: unset !important;
+		transition: all 0.3s libs.$bezier;
+		border-bottom: 1px solid var(--wp--preset--color--contrast);
+		// if there is a submenu to open, the nav will be full-height of the header
+		.wp-block-navigation > .has-child {
+			height: var(--site--header--height);
+		}
+	}
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 11;
+	background-color: var(--wp--preset--color--base);
+	color: var(--wp--preset--color--contrast);
+	// border-bottom: 1px solid var(--wp--preset--color--neutral);
+	+ * {
+		margin-top: var(
+			--site--header--height
+		) !important; // push any content down by the header height (needs to be detected)
+	}
+
+	//
+	.wp-block-navigation
+		> .wp-block-navigation__container
+		> .wp-block-navigation-item
+		> .wp-block-navigation-item__content {
+		@include libs.accentUnderline();
+		&:hover,
+		&:focus {
+			&::before {
+				width: 100%;
+			}
+		}
+	}
+	.wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+		padding-bottom: 7px;
+	}
+}
+
+//
+//
+//
+.site-header .wp-block-search {
+	// conditional applied to this config
+	&.wp-block-search__button-only {
+		position: relative;
+		//
+		.wp-block-search__button {
+			position: relative;
+			padding: 1.5rem;
+			svg {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+		//
+		.wp-block-search__input {
+			position: absolute;
+			right: 100%;
+			left: auto;
+			min-width: 0px;
+			font-size: 16px;
+			padding: 8px 16px;
+			&[aria-hidden="false"] {
+				min-width: 220px;
+				min-height: 48px;
+			}
+		}
+	}
+}

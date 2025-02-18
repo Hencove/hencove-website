@@ -1,0 +1,104 @@
+@use "../libs/" as libs;
+//
+//
+div.wp-block-group.is-team-popup {
+	position: relative;
+	margin: 125px var(--global-kb-spacing-4xl, 8rem) 100px
+		var(--global-kb-spacing-4xl, 8rem);
+	transition: all 1s ease;
+	// overflow: hidden;
+	//
+	&:not(.is-active) {
+		display: none;
+		// position: absolute;
+		// left: -9999px;
+
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.wp-block-image {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translate(0, -66%);
+		img {
+			height: 150px !important;
+			width: auto !important;
+			max-width: 150px;
+			object-fit: contain;
+		}
+	}
+
+	@include libs.media("<desktop") {
+		width: 100%;
+		margin: 64px auto 32px auto;
+		padding: 24px !important;
+
+		//
+		.wp-block-image {
+			left: 50%;
+			transform: translate(-50%, -66%);
+			
+			img {
+				height: 80px !important;
+			}
+		}
+	}
+}
+
+//
+//
+//
+.is-team {
+	.overlay {
+		background: none !important;
+	}
+
+	.kb-query-item {
+		&.no-clip {
+			figure .kb-img {
+				opacity: 1;
+			}
+		}
+
+		// after the ajax filter everything looks broken so we need these strong enforcements (ugh)
+		> .wp-block-group > .wp-block-group {
+			margin-top: 8px !important;
+			display: flex !important;
+			flex-flow: column nowrap !important;
+			align-items: flex-start !important;
+			justify-content: flex-start !important;
+			gap: 0 !important;
+		}
+	}
+
+	.wp-block-kadence-query-filter-buttons[data-hash="team"] {
+		padding: 0 var(--global-kb-spacing-4xl, 8rem);
+		margin-bottom: 2rem;
+		// max-width: 75%;
+		.buttons-options {
+			gap: 1.5rem;
+			.btn-inner-wrap {
+				flex: 1 0 100px;
+				.kb-button {
+					width: 100%;
+				}
+			}
+		}
+		@include libs.media("<desktop") {
+			padding-left: 0;
+			padding-right: 0;
+			.buttons-options {
+				gap: 1rem;
+				.btn-inner-wrap {
+					flex: 1 1 45%;
+					.kb-button {
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,195 @@
+@use "../libs/" as libs;
+//
+
+body.job-post-template-default {
+
+	.is-the-job-post-hero {
+		.gutterLineCoverUp {
+			height: calc(100% - 104px);
+			top: 104px;
+            background-color: var(--wp--preset--color--custom-accent-3-light);
+		}
+
+        /*
+        *
+        * Linework Styles
+        *
+        */
+        svg.divider-svg {
+            top: 75%;
+            z-index: 0;
+            margin-block-start: 0;
+
+            path {
+                stroke: var(--wp--preset--color--custom-accent-3-light);
+            }
+        }
+
+        figure > div {
+            display: none;
+        }
+        figure {
+            transform: scaleX(-1);
+        }
+	}
+
+    .kt-inside-inner-col:has(.job-post-anchor-list) {
+        position: sticky;
+        top: 10%;
+    }
+
+    .job-post-anchor-list,
+    .job-post-nav ul {
+        list-style: none;
+        padding-left: 0;
+        margin-left: 0;
+        margin-block-start: 0;
+
+        li {
+            margin-bottom: 25px;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+
+        .has-accent-underline {
+            @include libs.accentUnderline(before, 2px, right);
+        
+            &.is-active {
+                font-weight: 600;
+                &::before {
+                    width: 100% !important; // Animate the underline growing
+                }
+            }
+        }
+        
+    }
+
+    #join-the-crew {
+        .gutterLineCoverUp {
+            background-color: var(--wp--preset--color--custom-accent-3-light);
+        }
+    }
+
+    @include libs.media("<desktop") {
+
+        h5,
+        .is-the-job-post-hero {
+            text-align: center;
+        }
+
+        h5 {
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            
+            // &.active-trigger {
+            //     color: var(--wp--preset--color--primary);
+            // }
+        }
+        .wp-block-buttons {
+            justify-content: center;
+        }
+
+        .is-the-job-post-hero {
+            .kt-row-column-wrap {
+                padding-top: 6rem;
+            }
+            .gutterLineCoverUp {
+                height: calc(100% - 80px) !important;
+                top: 80px !important;
+            }
+            figure {
+                max-width: 75%;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: -15%;
+            }
+        }
+
+        .job-post-menu-trigger {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            
+            p {
+                padding: 2px;
+                position: relative;
+                z-index: 1;
+                border-bottom: 2px solid currentColor;
+                text-decoration: none;
+                display: inline-block;
+            }
+        }
+
+        .job-post-anchor-list {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 16px;
+            padding: 16px 32px;
+            width: 90%;
+            background-color: var(--wp--preset--color--secondary-bright);
+            z-index: 100;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            // Add close button styles
+            .menu-close-button {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                padding: 8px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                width: 32px;
+                height: 32px;
+                color: var(--wp--preset--color--contrast);
+                transition: opacity 0.3s ease;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            &.is-shown {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.3s ease, visibility 0s linear 0s;
+            }
+
+            li {
+                margin-bottom: 15px;
+                
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            a {
+                color: var(--wp--preset--color--contrast);
+                font-size: var(--wp--preset--font-size--large);
+                font-family: Manrope;
+                font-weight: 300;
+                text-decoration: none;
+                
+                &.is-active {
+                    font-weight: 600;
+                }
+            }
+        }
+
+    }
+
+}

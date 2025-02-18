@@ -1,0 +1,173 @@
+@use "../libs/" as libs;
+//
+//
+//
+//
+:root {
+	--hero-offset: 80px;
+}
+
+body.error404,
+article,
+body:not(.job-post-template-default) .entry-content {
+	&:before,
+	&:after {
+		content: "";
+		height: calc(100% - var(--hero-offset));
+		width: 6px;
+		background-color: var(--wp--preset--color--secondary);
+		position: absolute;
+		z-index: 3;
+		top: var(--hero-offset);
+		left: 32px;
+	}
+	&:after {
+		left: auto;
+		right: 32px;
+	}
+	@include libs.media("<=desktop") {
+		&::before {
+			left: 16px;
+			width: 4px;
+		}
+		&:after {
+			right: 16px;
+			width: 4px;
+		}
+	}
+}
+
+.gutterLineCoverUp {
+	position: absolute;
+	z-index: 4;
+	margin: 0;
+	padding: 0;
+	background-color: var(--wp--preset--color--primary);
+	width: 6px;
+	top: 0;
+	left: auto;
+	right: auto;
+	height: 100%;
+
+	&.left {
+		left: 32px;
+	}
+	&.right {
+		right: 32px;
+	}
+
+	@include libs.media("<=desktop") {
+		width: 4px;
+
+		&.left {
+			left: 16px;
+		}
+		&.right {
+			right: 16px;
+		}
+	}
+}
+
+@include libs.media("<=desktop") {
+	svg.divider-svg {
+		path {
+			stroke-width: 4;
+		}
+	}
+}
+
+// HERO POSITIONS
+.is-the-homepage-hero,
+.is-the-our-work-hero,
+.is-the-job-post-hero,
+.is-the-about-us-hero {
+	.gutterLineCoverUp {
+		height: calc(100% - var(--hero-offset));
+		top: var(--hero-offset);
+	}
+}
+
+
+// home page
+body.home .entry-content {
+	&:before {
+		z-index: -1;
+	}
+	.is-ditto-coverup {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--secondary);
+		}
+	}
+}
+
+// about us
+body.page-id-78 .entry-content {
+	&:after {
+		z-index: 0;
+	}
+	.is-team-grid-outer-container {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-1-light);
+		}
+	}
+	.is-about-us-hero {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-1-dark);
+		}
+	}
+	.is-river-overflow-wrapper {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-1-light);
+			height: 30%;
+
+			&.right {
+				z-index: 1;
+			}
+		}
+	}
+}
+
+// blog page
+body.page-id-80 .entry-content {
+	&:before,
+	&:after {
+		content: none;
+	}
+	& > .alignfull:first-child {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-2-light);
+			top: var(--hero-offset);
+		}
+	}
+	.is-blog-page-posts-container {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-2-dark);
+		}
+	}
+	.entry-content > .alignfull:last-child {
+		.hencurve-anchors-svg path {
+			stroke: var(--wp--preset--color--custom-accent-2-light);
+		}
+	}
+}
+
+
+// our-work
+body.page-id-79 .entry-content {
+
+	.is-the-our-work-hero {
+		.gutterLineCoverUp {
+			background-color: var(--wp--preset--color--custom-accent-4-dark);
+		}
+	}
+}
+
+// job post
+body.job-post-template-default {
+
+	.is-the-job-post-hero {
+		.gutterLineCoverUp {
+            background-color: var(--wp--preset--color--custom-accent-3-light);
+		}
+	}
+}

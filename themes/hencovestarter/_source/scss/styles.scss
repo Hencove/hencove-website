@@ -1,0 +1,15 @@
+/* start styles.css */
+//	?	basics
+@use "libs";
+@use "base";
+// 
+// 	?	fundamentals
+@use "header";
+@use "footer";
+@use "patterns";	// 	patterns and touch ups that aren't page specific
+@use "pages";		//	touch-ups to a specific page
+// 
+// 	?	work in progress
+@use "kadence-fixes";	// 	to be moved
+@use "experimental";	// 	to be moved
+/* end styles.css */

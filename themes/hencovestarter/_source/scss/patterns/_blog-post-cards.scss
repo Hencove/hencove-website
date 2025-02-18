@@ -1,0 +1,182 @@
+@use "../libs" as libs;
+//
+//
+//
+//
+$bezier: cubic-bezier(0.31, 0.11, 0.12, 0.99);
+$transition: all 1s $bezier, filter 2s $bezier;
+//? alternate layout is an override
+
+//*
+//*
+//* ALTERNATING LAYOUT
+//*
+//*
+#featured-posts.blog-posts-container {
+	//
+	@include libs.media(">=desktop") {
+		&.is-alternating {
+			.kb-query-item:nth-child(even) {
+				.wp-block-group.is-content-justification-left {
+					> .wp-block-cover {
+						margin-right: 0 !important;
+						margin-left: auto !important;
+
+						&:hover {
+							// text
+							.wp-block-group:has(.wp-block-post-title) {
+								transform: translateX(calc(-180px - 100%));
+							}
+						}
+					}
+				}	
+			}
+		}
+	}
+
+}
+//*
+//*
+//* BASE STYLES
+//*
+//*
+.featured-blogs-swiper,
+#featured-posts.blog-posts-container {
+	.wp-block-cover {
+		min-height: unset !important;
+		a {
+			color: inherit;
+		}
+		//
+		.is-the-post-permalink-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 3; // questionable???
+		}
+
+		//? Dim Overlay
+		span.wp-block-cover__background {
+			border-radius: 10px;
+			opacity: 0.85 !important;
+			transition: $transition;
+		}
+		.wp-block-cover__image-background {
+			isolation: isolate;
+			border-radius: 10px;
+		}
+		.wp-block-cover__inner-container {
+			max-width: 80%;
+		}
+
+		@include libs.media(">desktop") {
+			overflow: visible;
+			max-width: 55%;
+			//
+			// block wrapper
+			.wp-block-cover__inner-container {
+				mix-blend-mode: difference;
+			}
+			// text
+			.wp-block-group:has(.wp-block-post-title) {
+				transition: $transition;
+			}
+
+			// img
+			.wp-block-cover__image-background {
+				isolation: isolate;
+			}
+		}
+	}
+	// moved outside cover block selector to apply to mobile
+	//? Cover Block Text Styling
+	.wp-block-post-date {
+		font-family: Manrope;
+		font-size: var(--wp--preset--font-size--medium);
+		font-weight: 700;
+		time a {
+			text-decoration: unset !important;
+		}
+	}
+}
+//*
+//*
+//* HOVERS | for desktop and mobile
+//*
+//*
+.featured-blogs-swiper,
+#featured-posts.blog-posts-container {
+	.wp-block-cover {
+		&:hover {
+			span.wp-block-cover__background {
+				opacity: 0 !important;
+			}
+		}
+		@include libs.media(">=desktop") {
+			&:hover {
+				// alternating standard "left-aligned" layout
+				.wp-block-group:has(.wp-block-post-title) {
+					transform: translateX(calc(180px + 100%));
+				}
+			}
+		}
+		@include libs.media("<desktop") {
+			max-width: var(--wp--style--global--content-size);
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+	}
+
+	// duplicate block group with title and date
+	.kb-query-item > .wp-block-group:not(:has(.wp-block-cover)) {
+		visibility: hidden;
+		height: 0;
+	}
+
+	@include libs.media("<desktop") {
+		//
+		.kb-query-item {
+			// Group with cover
+			.wp-block-group:has(.wp-block-cover) {
+				span.has-background-dim {
+					opacity: 0 !important;
+				}
+
+				// Inner container with title
+				.wp-block-cover__inner-container {
+					visibility: hidden;
+				}
+			}
+
+			// Group with title
+			& > .wp-block-group:not(:has(.wp-block-cover)) {
+				visibility: visible;
+				height: auto;
+				margin-top: var(--wp--preset--spacing--medium);
+			}
+		}
+	}
+}
+
+@include libs.media("<desktop") {
+
+	.is-blog-page-posts-container {
+
+		.kb-query-grid-wrap {
+
+			gap: var(--global-kb-gap-lg);
+
+			.kb-query-item {
+				// Group with title
+				& > .wp-block-group:not(:has(.wp-block-cover)) {
+					a,
+					svg path {
+						color: var(--wp--preset--color--base);
+					}
+				}
+			}
+		}
+	}
+}

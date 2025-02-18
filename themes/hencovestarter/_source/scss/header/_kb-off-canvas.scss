@@ -1,0 +1,229 @@
+@use "../libs/" as libs;
+/* 
+	Markup Reference:
+
+	.wp-block-kadence-off-canvas{
+		.kb-off-canvas-inner-wrap{
+			.kb-off-canvas-close{}
+			.kb-off-canvas-inner{
+				(blocks)
+			}
+		}
+	}
+*/
+
+//  ?	makes off canvas slide in from the top
+.wp-block-kadence-off-canvas {
+	.kb-off-canvas-inner-wrap {
+		transform: translateX(0) !important;
+		transform: translateY(-100%) !important;
+		transition: transform 0.4s libs.$bezier;
+	}
+	&.active {
+		.kb-off-canvas-inner-wrap {
+			transform: translateX(0) !important;
+			transform: translateY(0) !important;
+			transition: transform 0.4s libs.$bezier;
+		}
+	}
+}
+
+// 	?	adjust layout manually becaues the CMS is a pain
+.wp-block-kadence-off-canvas {
+	// 	?	lets us change this in one place
+	$edge-padding: 32px;
+	@include libs.media("<tablet") {
+		$edge-padding: 16px;
+	}
+	.kb-off-canvas-inner-wrap {
+		.kb-off-canvas-close {
+			padding: $edge-padding !important;
+			top: 0;
+			right: 0;
+		}
+
+		// 	?	here we will need to manually layout everything, the CMS is a pain!
+		.kb-off-canvas-inner {
+			// 	pin logo to top left
+			.is-site-logo {
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding: $edge-padding !important;
+			}
+
+			// 	this is the only element remaining in the DOM flow
+			// 	it's centered already by the CMS so we just give it a nudge and some spacing.
+			.wp-block-kadence-navigation {
+				// transform: translateY(-50%);
+				.kb-navigation.menu {
+					gap: var(--wp--preset--spacing--large);
+				}
+				//
+				.current-menu-item {
+					a.kb-nav-link-content {
+						&:before {
+							width: 33%;
+						}
+						&:hover {
+							&:before {
+								width: 100%;
+							}
+						}
+					}
+				}
+			}
+
+			> .wp-block-kadence-rowlayout:last-child {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				> .kt-row-column-wrap {
+					padding: 0 $edge-padding !important;
+				}
+				// 	some adjustments for mobile
+				@include libs.media("<tablet") {
+					.is-contact-links {
+						> p {
+							flex: 1 1 45%;
+							text-align: center;
+						}
+					}
+					//  this is the copyright
+					.wp-block-kadence-column:last-child {
+						.wp-block-group.is-content-justification-right {
+							margin: $edge-padding 0;
+							justify-content: center;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+/* 
+.wp-site-blocks {
+	main,
+	footer {
+		.is-off-canvas-content-group {
+			.kb-nav-link-content {
+				padding: 8px 0 0 0;
+				margin-bottom: 8px;
+			}
+			.wp-block-navigation-item__content a {
+				@include libs.accentUnderline();
+				&:hover,
+				&:focus {
+					&::before {
+						width: 100%;
+					}
+				}
+			}
+
+			:where(.current-menu-item, .is-current-page-ancestor) {
+				.wp-block-navigation-item__content {
+					&::before {
+						width: 33%;
+					}
+				}
+			}
+		}
+	}
+}
+
+//
+//
+.wp-block-kadence-off-canvas-trigger {
+	padding: unset;
+	height: 40px !important;
+	overflow: hidden;
+	//*
+	//* <begin> Accent Underline </begin> //*
+	//*
+	@include libs.accentUnderline();
+	&::before {
+		bottom: 0;
+		top: auto;
+	}
+	svg {
+		transition-duration: 0.5s;
+		height: 40px;
+	}
+	&:hover,
+	&:focus {
+		text-decoration: none !important;
+		&::before {
+			width: 100%;
+		}
+	}
+	//*
+	//* <end> Accent Underline </end> //*
+	//*
+}
+
+//* Pushing content down
+.kb-off-canvas-inner {
+	//
+	//
+	.is-off-canvas-content-group {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		> div {
+			width: 100%;
+		}
+	}
+	.is-contact-content a {
+		text-decoration: none;
+		@include libs.accentUnderline();
+		&:hover,
+		&:focus {
+			&::before {
+				width: 100%;
+			}
+		}
+	}
+
+	//
+	.menu-container {
+		ul.kb-navigation.menu {
+			gap: 1em;
+			.kb-link-wrap {
+				justify-content: center;
+				.kb-nav-link-content {
+					padding: 0;
+					text-decoration: underline;
+					text-decoration-color: transparent;
+					// TODO: Make bezier
+					transition: all 0.3s ease;
+					&:hover {
+						@include libs.custom-cursor;
+						text-decoration-color: var(--wp--preset--color--contrast);
+					}
+				}
+			}
+		}
+	}
+}
+
+button.kb-off-canvas-close {
+	svg path {
+		fill: none;
+		stroke-width: 20px;
+		stroke: var(--wp--preset--color--contrast);
+	}
+}
+
+
+.wp-block-kadence-off-canvas {
+	z-index: 100;
+}
+
+.kb-off-canvas-inner-wrap button.kb-off-canvas-close {
+	padding-right: var(--global-kb-spacing-md, 2rem) !important;
+}
+
+*/

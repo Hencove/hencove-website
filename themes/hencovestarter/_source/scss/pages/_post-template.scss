@@ -1,0 +1,18 @@
+@use "../libs/" as libs;
+
+body.page-id-79,
+body.post-template-default {
+	.swiper-horizontal > .swiper-pagination-bullets,
+	.swiper-pagination-bullets.swiper-pagination-horizontal,
+	.swiper-pagination-custom,
+	.swiper-pagination-fraction {
+		width: unset;
+		left: 32px;
+		right: 32px;
+
+		@include libs.media("<desktop") {
+			left: 16px;
+			right: 16px;
+		}
+	}
+}

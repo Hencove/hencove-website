@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "acf/lottie-player",
+	"title": "Lottie Player",
+	"description": "A custom lottie player solution",
+	"category": "design",
+	"icon": "text-page",
+	"apiVersion": 2,
+	"keywords": [""],
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "block-template.php"
+	},
+	"styles": [{ "name": "default", "label": "Default", "isDefault": true }],
+	"supports": {
+		"align": ["wide", "full"],
+		"anchor": true,
+		"alignContent": true,
+		"alignText": true,
+		"jsx": true,
+		"fullHeight": false,
+		"color": {
+			"text": true,
+			"background": true,
+			"link": false
+		},
+		"spacing": {
+			"margin": false,
+			"padding": false
+		},
+		"typography": {
+			"lineHeight": false,
+			"fontSize": false
+		}
+	},
+	"attributes": {},
+	"viewScript" : "lottie-player",
+	"style": ["file:./style.css"]
+}

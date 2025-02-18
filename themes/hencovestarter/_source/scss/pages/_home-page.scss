@@ -1,0 +1,65 @@
+//
+//
+//
+// .is-ditto-coverup {
+// 	position: absolute;
+// 	left: var(--wp--style--root--padding-left);
+// 	z-index: 1;
+// 	width: 100%;
+
+//     + .wp-block-image {
+//         position: relative;
+//         z-index: 2;
+//     }
+// }
+
+// .hencurve.flip {
+// 	.textContainer {
+// 		display: flex;
+// 		flex-flow: column nowrap;
+// 		justify-content: center;
+// 	}
+// }
+
+.is-homepage-hero-slideup-card {
+	position: relative;
+	z-index: 2;
+}
+
+.is-ditto-coverup {
+	.ditto-svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		max-width: unset !important;
+	}
+}
+
+//
+.is-make-magic-container {
+	margin-block-start: 0;
+	svg.is-motion-horizontal-line {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		max-width: unset;
+	}
+}
+
+//
+//
+
+/*
+ *
+ * Linework Styles
+ *
+*/
+.hencurve-anchors-container {
+	svg.hencurve-anchors-svg {
+		path {
+			stroke: var(--wp--preset--color--secondary);
+		}
+	}
+}

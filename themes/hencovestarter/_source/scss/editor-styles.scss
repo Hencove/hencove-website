@@ -1,0 +1,27 @@
+/* start editor-styles.css */
+
+// underline the post title and separate it from the editing area
+.edit-post-visual-editor__post-title-wrapper {
+	margin-bottom: 72px;
+	> h1 {
+		font-size: 48px;
+		max-width: 100%;
+		text-align: center;
+		border-bottom: 1px solid rgba(124, 124, 124, 0.33);
+	}
+}
+// create space below the last block in the editor
+.is-root-container.block-editor-block-list__layout {
+	margin-bottom: 20vh;
+}
+
+// no clue why i need this, looks like a bug in wp 6.4.3
+img {
+	border-style: none;
+}
+
+.components-resizable-box__container > .custom-logo-link {
+	width: 100%;
+}
+
+/* end editor-styles.css */

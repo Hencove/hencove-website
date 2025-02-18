@@ -1,0 +1,77 @@
+{
+	"version": 2,
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"title": "Hencove",
+	"description":  "2024 Hencove Color Palette",
+	"settings": {
+		"color": {
+			"palette": [
+				{
+					"color": "#fefaf1",
+					"name": "Base",
+					"slug": "base"
+				},
+				{
+					"color": "#262626",
+					"name": "Contrast",
+					"slug": "contrast"
+				},
+				{
+					"color": "#ffd623",
+					"name": "Primary",
+					"slug": "primary"
+				},
+				{
+					"color": "#ed9d23",
+					"name": "Secondary",
+					"slug": "secondary"
+				},
+				{
+					"color": "#f7ead2",
+					"name": "Neutral",
+					"slug": "neutral"
+				},
+				{
+					"color": "#6b8dfe",
+					"name": "Blue",
+					"slug": "blue"
+				},
+				{
+					"color": "09467a",
+					"name": "Dark Blue",
+					"slug": "dark-blue"
+				},
+				{
+					"color": "#37ccbf",
+					"name": "Green",
+					"slug": "green"
+				},
+				{
+					"color": "#125e45",
+					"name": "Dark Green",
+					"slug": "dark-green"
+				},
+				{
+					"color": "#e673e4",
+					"name": "Pink",
+					"slug": "pink"
+				},
+				{
+					"color": "#851d5d",
+					"name": "Dark Pink",
+					"slug": "dark-pink"
+				},
+				{
+					"color": "#b18af8",
+					"name": "Purple",
+					"slug": "purple"
+				},
+				{
+					"color": "#572987",
+					"name": "Dark Purple",
+					"slug": "dark-purple"
+				}
+			]
+		}
+	}
+}

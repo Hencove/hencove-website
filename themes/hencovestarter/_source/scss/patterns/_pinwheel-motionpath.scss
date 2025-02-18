@@ -1,0 +1,63 @@
+@use "../libs/" as libs;
+// ?	initial setup stuff here - shouldn't really ever change
+.is-pinwheel-motionpath-container {
+	svg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		max-width: unset;
+		width: 100%; // Ensure it spans the full width of the container
+		height: 100%; // Ensure it spans the full height (100vh)
+		path {
+			stroke: transparent; // comment this out for "debugging"
+		}
+	}
+}
+
+//
+//
+.is-pinwheel-motionpath-container {
+	//
+	padding: 20vh 0; // ? 	this gives us some space for items to not visually clip outside the svg
+	overflow: hidden;
+
+	// ? 	see above - items may clip outside this container, but not the outer one.
+	.is-pinwheel-motionpath-svg-container {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		@include libs.media(">desktop") {
+			height: 140vh;
+			min-height: 95vw;
+		}
+		@include libs.media("<desktop") {
+			margin-left: unset !important;
+			margin-right: unset !important;
+			min-height: 100vw;
+		}
+	}
+
+	// ?	we can't display:none, so we have to just move this off screen
+	.is-hidden-pinwheel-items-container {
+		position: absolute;
+		z-index: 1;
+		left: -9999px;
+	}
+
+	// motion path classes here
+	.do-motionpath-small,
+	.do-motionpath-medium,
+	.do-motionpath-large {
+		//
+		// ?	kinda hacky way to shrink items when we dont have much screenspace
+		@include libs.media("<desktop") {
+			transform: scale(0.5);
+		}
+
+		//
+		// ?	are we using this
+		.has-shadow {
+			@include libs.boxShadow(6);
+		}
+	}
+}

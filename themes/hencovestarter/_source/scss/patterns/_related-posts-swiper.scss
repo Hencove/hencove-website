@@ -1,0 +1,73 @@
+@use "../libs/" as libs;
+
+//
+//
+body.single.single-post {
+
+	// overrides here????
+	
+}
+//
+//
+.featured-blogs-swiper {
+	.related-posts-slider-rebuilt {
+		padding: 32px;
+		@include libs.media('<desktop'){
+			padding: 16px;
+		}
+        .kb-query-item > .wp-block-group {
+            background-color: var(--wp--preset--color--base);
+        }
+	}
+
+	.swiper {
+		.swiper-wrapper,
+		.swiper-pagination {
+			padding: 32px;
+
+			@include libs.media('<desktop'){
+				padding: 16px;
+			
+				.swiper-slide {
+					width: calc(100% - 32px) !important;
+
+					&:nth-of-type(1){
+						margin-right: 16px;
+					}
+					&:nth-of-type(2),
+					&:nth-of-type(3){
+						margin-left: 16px;
+						margin-right: 16px;
+					}
+					&:nth-of-type(4){
+						margin-left: 16px;
+
+					}
+				}
+			}
+		}
+	}
+
+	// TODO: fix this up!
+	.swiper-pagination {
+		display: flex;
+		flex-flow: row nowrap;
+		.swiper-pagination-bullet {
+			flex: 1 0 auto;
+			border-radius: 8px;
+			background-color: var(--wp--preset--color--neutral);
+			&.swiper-pagination-bullet-active {
+				background-color: #ECDBBB;
+			}
+		}
+	}
+
+	.swiper-scrollbar {
+		display: none;
+	}
+
+	.swiper-button-prev,
+	.swiper-button-next {
+		display: none;
+	}
+}

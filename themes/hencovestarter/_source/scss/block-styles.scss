@@ -1,0 +1,127 @@
+//
+@use "libs/_index" as libs;
+@use "blocks/paragraph";
+@use "blocks/buttons";
+
+body,
+:root {
+	// global
+	--global-content-edge-padding: var(--wp--custom--spacing--gutter);
+	// --global-palette1: #3182CE;
+	// --global-palette2: #2B6CB0;
+	// --global-palette3: #1A202C;
+	// --global-palette4: #2D3748;
+	// --global-palette5: #4A5568;
+	// --global-palette6: #718096;
+	// --global-palette7: #EDF2F7;
+	// --global-palette8: #F7FAFC;
+	// --global-palette9: #ffffff;
+	// gap
+	--global-kb-gap-lg: var(--wp--preset--spacing--large);
+	--global-kb-gap-md: var(--wp--preset--spacing--medium);
+	--global-kb-gap-sm: var(--wp--preset--spacing--small);
+	// spacing
+	--global-kb-spacing-xxs: var(--wp--preset--spacing--xx-small);
+	--global-kb-spacing-xs: var(--wp--preset--spacing--x-small);
+	--global-kb-spacing-sm: var(--wp--preset--spacing--small);
+	--global-kb-spacing-md: var(--wp--preset--spacing--medium);
+	--global-kb-spacing-lg: var(--wp--preset--spacing--large);
+	--global-kb-spacing-xl: var(--wp--preset--spacing--x-large);
+	--global-kb-spacing-xxl: var(--wp--preset--spacing--xx-large);
+	--global-kb-spacing-2xl: var(--wp--preset--spacing--xx-large);
+	--global-kb-spacing-xxxl: var(--wp--preset--spacing--xxx-large);
+	--global-kb-spacing-3xl: var(--wp--preset--spacing--xxx-large);
+	// font-size
+	--global-kb-font-size-sm: var(--wp--preset--font-size--small);
+	--global-kb-font-size-md: var(--wp--preset--font-size--medium);
+	--global-kb-font-size-lg: var(--wp--preset--font-size--large);
+	--global-kb-font-size-xl: var(--wp--preset--font-size--x-large);
+	--global-kb-font-size-xxl: var(--wp--preset--font-size--max-36);
+	--global-kb-font-size-xxxl: var(--wp--preset--font-size--max-48);
+	// buttons
+	--global-palette-btn: var(--wp--preset--color--base);
+	--global-palette-btn-bg: var(--wp--preset--color--primary);
+	--global-palette-btn-hover: var(--wp--preset--color--secondary);
+	--global-palette-btn-bg-hover: var(--wp--preset--color--contrast);
+
+	// moves primary bullet list indent to line up with the paragraph indent
+	.wp-block-list {
+		padding-left: 16px;
+	}
+}
+//
+//
+// ? this lets inherit max width work for group block when nested inside a row layout block
+// ?	it works on the front end but not in the admin area by default
+// ?	without this in the editor, blocks appear full-width when they're really content width
+//
+.wp-block-kadence-rowlayout .block-editor-block-list__layout {
+	.is-layout-constrained,
+	.wp-block-group-is-layout-constrained {
+		> * {
+			max-width: var(--wp--style--global--content-size);
+		}
+		> * {
+			&.alignwide {
+				max-width: var(--wp--style--global--wide-size);
+			}
+		}
+		> * {
+			&.alignfull {
+				max-width: 100%;
+			}
+		}
+	}
+}
+
+//
+//
+//
+
+//
+
+.wp-block-kadence-advancedbtn {
+	//
+	//  ?   from kadence,
+	//  ?   this sets the defaults without affecting the inherit from theme button style
+	//
+	.kb-button:not(.kb-btn-global-inherit) {
+		border-radius: 40px; // from theme.json
+		padding: calc(0.667em + 2px) calc(1.333em + 2px); // from wp core defaults
+	}
+	//
+	//
+	//
+	.wp-block-kadence-singlebtn {
+		min-width: 120px;
+		transition: all 0.2s ease-in-out;
+		//
+		&.kb-btn-global-fill {
+			&:hover,
+			&:focus {
+				background-color: var(--wp--preset--color--contrast);
+				color: var(--wp--preset--color--base);
+			}
+		}
+		&.kb-btn-global-outline {
+			color: var(--wp--preset--color--primary);
+			border: 2px solid var(--wp--preset--color--primary) !important;
+			background-color: white;
+			&.is-current-page,
+			&:hover,
+			&:focus {
+				border: 2px solid var(--wp--preset--color--contrast) !important;
+				color: var(--wp--preset--color--base) !important;
+				background-color: var(--wp--preset--color--contrast) !important;
+			}
+		}
+		&.kb-btn-global-inherit {
+			border: 2px solid transparent; // (from our own stylesheet modifying buttons, that could move to theme.json and go away here)
+			background-color: var(--wp--preset--color--primary);
+			&:hover,
+			&:focus {
+				@include libs.buttonHoverStyle();
+			}
+		}
+	}
+}

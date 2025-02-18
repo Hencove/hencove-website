@@ -1,0 +1,121 @@
+@use "../libs" as libs;
+
+// Month Filters for the home page
+.is-the-month-filter {
+	display: flex;
+	justify-content: center;
+
+	// Original list styling
+	ul.wp-block-list {
+		flex: 1 0 100%;
+		display: flex;
+		list-style: none;
+		gap: 10px;
+		justify-content: space-between;
+		padding-inline-start: unset;
+
+		li a {
+			padding: 2px 4px;
+			text-decoration: none;
+			@include libs.accentUnderline();
+			&:hover,
+			&:focus {
+				&::before {
+					width: 100%;
+				}
+			}
+		}
+
+		li:has(a.active) {
+			border-bottom: 2px solid var(--wp--preset--color--black);
+		}
+
+		li a.active {
+			font-weight: 700;
+		}
+	}
+
+	// Dropdown container (Select2)
+	> span.select2-container {
+		// General styling for dropdown
+		max-width: 640px;
+		border-bottom: 2px solid var(--wp--preset--color--black);
+		padding: 8px 16px;
+
+		// Selection box
+		.select2-selection {
+			background-color: var(--wp--preset--color--base);
+			border-radius: 10px;
+			border: unset;
+		}
+
+		// Arrow inside selection box
+		.select2-selection__arrow {
+			width: 26px;
+			height: 15px;
+			right: 8px;
+			transform: translateY(-50%) rotate(90deg);
+			transition: all 0.3s ease;
+			top: 50%;
+			background-image: url("/wp-content/themes/hencovestarter/assets/images/arrow.svg");
+			background-size: contain;
+			background-repeat: no-repeat;
+			content: "";
+			
+			// default arrow
+			b {
+				display: none;
+			}
+		}
+
+		// Open dropdown state
+		&.select2-container--open {
+			border-radius: 10px 10px 0 0;
+
+			.select2-selection__arrow {
+				transform: translateY(-50%) rotate(-90deg);
+			}
+		}
+
+		// Dropdown menu
+		.select2-dropdown--below {
+			border: 2px solid var(--wp--preset--color--black);
+			border-top: unset;
+			border-radius: 0 0 10px 10px;
+		}
+
+		.select2-results__options {
+			border-radius: 0 0 10px 10px;
+
+			.select2-results__option--highlighted {
+				background-color: var(--wp--preset--color--primary);
+			}
+
+			.select2-results__option--selected {
+				background-color: var(--wp--preset--color--neutral);
+				color: var(--wp--preset--color--contrast);
+			}
+		}
+	}
+
+	// Hide/show logic for mobile/desktop views
+	@include libs.media("<=desktop") {
+		ul.wp-block-list {
+			display: none; // Hide list on mobile
+		}
+
+		span.select2-container {
+			display: block; // Show dropdown on mobile
+		}
+	}
+
+	@include libs.media(">desktop") {
+		ul.wp-block-list {
+			display: flex; // Show list on desktop
+		}
+
+		span.select2-container {
+			display: none; // Hide dropdown on desktop
+		}
+	}
+}

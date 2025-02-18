@@ -1,0 +1,127 @@
+@use "../libs" as libs;
+//
+/* 
+	TODO: nice to haves:
+	-	fix for autofilled field background color is off-brand
+	-	
+*/
+//
+//
+//
+//
+//? Footer Form
+#wpforms-form-111 {
+	max-width: 500px;
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: 1fr auto;
+	gap: 0;
+	position: relative;
+
+	#wpforms-111-field_2-container {
+		padding: unset;
+	}
+
+	// cool arrow effect on focus/hover
+	.wpforms-field-container,
+	.wpforms-submit-container {
+		&:hover,
+		&:focus,
+		&:focus-within {
+			~ .wpforms-submit-container button[type="submit"],
+			> button[type="submit"] {
+				transform: translateX(1rem); /* Move the button to the right */
+				transition: transform 0.3s ease; /* Smooth animation */
+			}
+		}
+	}
+
+	.wpforms-head-container {
+		grid-column: span 2; /* Make the header span across both columns */
+	}
+
+	.wpforms-submit-container {
+		margin-top: unset;
+		position: relative;
+
+		#wpforms-submit-111 {
+			position: absolute;
+			right: 1rem;
+			// bottom: 1rem;
+			width: auto;
+			height: auto;
+			padding: var(--wpforms-field-size-padding-h);
+			border: unset !important;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: transform 0.3s ease, background-color 0.3s ease;
+
+			&:focus,
+			&:hover {
+				background-color: unset !important;
+			}
+		}
+	}
+}
+//
+//
+div.wpforms-container-full {
+	input,
+	select,
+	textarea,
+	button[type="submit"],
+	.wpforms-field-file-upload .wpforms-uploader {
+		&,
+		&:hover,
+		&:focus {
+			background-color: unset !important;
+			border-radius: unset !important;
+			border: unset !important;
+			border-bottom: unset !important;
+			box-shadow: unset !important;
+		}
+	}
+}
+
+//
+div.wpforms-container-full {
+	input,
+	select,
+	textarea {
+		border: 1px solid transparent !important;
+		border-radius: 0 !important;
+		border-bottom: 1px solid var(--wp--preset--color--contrast) !important;
+		transition: all 0.3s libs.$bezier !important;
+		&:hover,
+		&:focus {
+			border-radius: 10px !important;
+			border: 1px solid var(--wp--preset--color--contrast) !important;
+			box-shadow: 0 0 0 1px var(--wp--preset--color--contrast),
+				0px 1px 2px rgba(0, 0, 0, 0.15) !important;
+		}
+		&::placeholder {
+			color: var(--wp--preset--color--contrast) !important;
+			opacity: 1 !important; /* Override the 0.5 opacity */
+		}
+	}
+	button[type="submit"] {
+		width: 100%;
+		@include libs.formSubmitButton;
+		&:hover,
+		&:focus {
+			@include libs.formSubmitButton_Hover;
+			opacity: 1 !important;
+		}
+	}
+	.wpforms-field-file-upload .wpforms-uploader {
+		border: 1px dotted var(--wp--preset--color--contrast) !important;
+		border-radius: 10px !important;
+		&:hover,
+		&:focus {
+			border: 1px dotted var(--wp--preset--color--contrast) !important;
+			border-radius: 10px !important;
+		}
+	}
+}

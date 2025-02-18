@@ -1,0 +1,28 @@
+{
+	"name": "hencovestarter",
+	"version": "1.0.0",
+	"description": "=== HenCove Starter === Contributors: Hencove Requires at least: 6.0 Tested up to: 6.4.3 Requires PHP: 5.7 License: GPLv2 or later License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+	"main": "webpack.mix.js",
+	"scripts": {},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/preset-react": "^7.26.3",
+		"clean-webpack-plugin": "^4.0.0",
+		"laravel-mix": "^6.0.49",
+		"laravel-mix-clean": "^0.1.0",
+		"sass": "^1.83.0",
+		"sass-loader": "^12.6.0",
+		"webpack": "^5.97.1",
+		"webpack-cli": "^4.10.0"
+	},
+	"dependencies": {
+		"@svgdotjs/svg.js": "^3.2.4",
+		"gsap": "npm:@gsap/shockingly@^3.12.5",
+		"isotope-layout": "^3.0.6",
+		"lottie-web": "^5.12.2",
+		"swiper": "^11.2.0",
+		"wcag-contrast": "^3.0.0"
+	}
+}

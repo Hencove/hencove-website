@@ -1,0 +1,37 @@
+@use "../libs/" as libs;
+//
+// 		? still needs more work here adjusting header for tablet/mobile
+//
+.wp-block-kadence-header {
+	--kb-transparent-header-bg: transparent !important;
+
+	@include libs.media("<=desktop") {
+		.kb-header-container {
+			box-shadow: none !important;
+		}
+
+		.kadence-header-row-inner {
+			padding-left: 16px !important;
+			padding-right: 16px !important;
+		}
+	}
+}
+
+.wp-block-kadence-header-desktop .kadence-header-row-inner {
+	padding: 0 32px !important;
+}
+
+.wp-block-kadence-header-desktop {
+	transition: all 0.3s ease;
+	&:not(.item-is-fixed) {
+		// background: unset;
+		background-color: transparent !important;
+		box-shadow: unset !important;
+	}
+	&.item-is-fixed {
+		height: 64px !important;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+	}
+}
