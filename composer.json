@@ -1,0 +1,58 @@
+{
+   "name": "hencove/hencove-website",
+   "description": "Hencove Website",
+   "license": "GPL-2.0+",
+   "type": "project",
+   "repositories": [
+	   {
+		   "type":"composer",
+		   "url":"https://wpackagist.org",
+		   "only": [
+			   "wpackagist-plugin/*",
+			   "wpackagist-theme/*"
+		   ]
+	   },
+	   
+	   {
+		   "type":"composer",
+		   "url":"https://connect.advancedcustomfields.com"
+	   }
+   ],
+   "require": {
+	   "wpackagist-theme/kadence": "*",
+	   "wpackagist-plugin/akismet": "*",
+	   "wpackagist-plugin/breadcrumb-navxt": "*",
+	   "wpackagist-plugin/create-block-theme": "*",
+	   "wpackagist-plugin/filebird": "*",
+	   "wpackagist-plugin/google-site-kit": "*",
+	   "wpackagist-plugin/kadence-blocks": "*",
+	   "wpackagist-plugin/leadin": "*",
+	   "wpackagist-plugin/members": "*",
+	   "wpackagist-plugin/microsoft-clarity": "*",
+	   "wpackagist-plugin/redirection": "*",
+	   "wpackagist-plugin/safe-svg": "*",
+	   "wpackagist-plugin/wordfence": "*",
+	   "wpackagist-plugin/wordpress-importer": "*",
+	   "wpackagist-plugin/wordpress-seo": "*",
+	   "wpackagist-plugin/wp-mail-smtp": "*",
+	   "wpackagist-plugin/wp-optimize": "*",
+	   "wpackagist-plugin/leadin": "*",
+       "wpengine/advanced-custom-fields-pro": "*",
+	   "cedaro/satispress": "*"
+   },
+   "extra": {
+	   "installer-paths": {
+		   "plugins/{$name}/": [
+			   "type:wordpress-plugin"
+		   ],
+		   "themes/{$name}/": [
+			   "type:wordpress-theme"
+		   ]
+	   }
+   },
+   "config": {
+	   "allow-plugins": {
+		   "composer/installers": true
+	   }
+   }
+}
