@@ -11,6 +11,7 @@ cache/*
 cache/supercache/*
 index.php
 mysql.sql
+wflogs/
 
 .env
 .env.*

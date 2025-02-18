@@ -57,6 +57,11 @@ autoupdater_maintenance_mode_enabled.tmp
 advanced-cache.php
 
 #---------------------------
+# Wordfence Logs
+#---------------------------
+/wflogs/
+
+#---------------------------
 # large/disallowed file types
 # a CDN should be used for these
 #---------------------------
