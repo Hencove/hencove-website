@@ -50,3 +50,5 @@ Thumbs.db
 
 # Custom Ignores:
 vendor/
+.npmrc
+_build/
