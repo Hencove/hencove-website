@@ -10,7 +10,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Preparing to deploy to WP Engine dev"
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install hencurves dependencies
+        run: npm ci
+        working-directory: ./plugins/hencurves
+      - name: Install hencurves-anchor dependencies
+        run: npm ci
+        working-directory: ./plugins/hencurves-anchor
+      - name: Install hencovestarter dependencies
+        run: npm ci
+        working-directory: ./themes/hencovestarter
+      - name: Mix hencurves
+        run: npx mix
+      - name: Mix hencurves
+        run: npx mix
+        working-directory: ./plugins/hencurves
+      - name: mix hencurves-anchor
+        run: npx mix
+        working-directory: ./plugins/hencurves-anchor
+      - name: Mix hencovestarter
+        run: npx mix
+        working-directory: ./themes/hencovestarter
       - name: GitHub Action Deploy to WP Engine
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
