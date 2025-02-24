@@ -22,7 +22,13 @@
       }
    },
    "require-dev": {
-      "php-stubs/acf-pro-stubs": "^6.0"
+      "php-stubs/acf-pro-stubs": "^6.0",
+      "satispress/kadence-blocks-pro": "*",
+      "satispress/kadence-custom-fonts": "*",
+      "satispress/wpforms": "*",
+      "satispress/wpforms-hubspot": "*",
+      "satispress/wpforms-lead-forms": "*",
+      "satispress/wpforms-user-registration": "*"
    },
    "require": {
       "wpackagist-theme/kadence": "*",
@@ -42,12 +48,6 @@
       "wpackagist-plugin/wordpress-seo": "*",
       "wpackagist-plugin/wp-mail-smtp": "*",
       "wpackagist-plugin/wp-optimize": "*",
-      "satispress/kadence-blocks-pro": "*",
-      "satispress/kadence-custom-fonts": "*",
-      "satispress/wpforms": "*",
-      "satispress/wpforms-hubspot": "*",
-      "satispress/wpforms-lead-forms": "*",
-      "satispress/wpforms-user-registration": "*",
       "wpengine/advanced-custom-fields-pro": "*",
       "cedaro/satispress": "*"
    },
