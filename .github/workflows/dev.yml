@@ -20,6 +20,7 @@ jobs:
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
+        working-directory: ./plugins/hencurves
       - name: Install hencurves dependencies
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
