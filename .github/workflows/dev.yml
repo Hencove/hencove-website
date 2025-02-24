@@ -44,8 +44,6 @@ jobs:
         working-directory: ./themes/hencovestarter
       - name: Mix hencurves
         run: npx mix
-      - name: Mix hencurves
-        run: npx mix
         working-directory: ./plugins/hencurves
       - name: mix hencurves-anchor
         run: npx mix
