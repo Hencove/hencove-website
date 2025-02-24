@@ -17,3 +17,7 @@ wflogs/
 .env.*
 auth.json
 vendor
+
+/themes/hencovestarter/node_modules
+/plugins/hencurves/node_modules
+/plugins/hencurves-anchor/node_modules
