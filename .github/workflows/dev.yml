@@ -16,22 +16,25 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
-      - name: Install hencurves dependencies
+      - name: Install hencurves GSAP
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
+      - name: Install hencurves dependencies
         run: npm ci
         working-directory: ./plugins/hencurves
-      - name: Install hencurves-anchor dependencies
+      - name: Install hencurves-anchor GSAP
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
+      - name: Install hencurves-anchor dependencies
         run: npm ci
         working-directory: ./plugins/hencurves-anchor
-      - name: Install hencovestarter dependencies
+      - name: Install hencovestarter GSAP
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
+      - name: Install hencovestarter dependencies
         run: npm ci
         working-directory: ./themes/hencovestarter
       - name: Mix hencurves
