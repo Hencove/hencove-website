@@ -21,21 +21,21 @@ jobs:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
       - name: Install hencurves dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./plugins/hencurves
       - name: Install hencurves-anchor GSAP
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
       - name: Install hencurves-anchor dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./plugins/hencurves-anchor
       - name: Install hencovestarter GSAP
         env:
           GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
         run: npm install gsap@npm:@gsap/shockingly
       - name: Install hencovestarter dependencies
-        run: npm ci
+        run: npm install
         working-directory: ./themes/hencovestarter
       - name: Mix hencurves
         run: npx mix
