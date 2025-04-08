@@ -21,3 +21,14 @@ vendor
 themes/hencovestarter/node_modules
 plugins/hencurves/node_modules
 plugins/hencurves-anchor/node_modules
+
+themes/hencovestarter/_source
+plugins/hencurves/_source
+plugins/hencurves-anchor/_source
+
+.git
+.gitignore
+mix-manifest.json
+package-lock.json
+package.json
+webpack.mix.js

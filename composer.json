@@ -24,30 +24,12 @@
    "require-dev": {
       "php-stubs/acf-pro-stubs": "^6.0",
       "satispress/kadence-blocks-pro": "*",
-      "satispress/kadence-custom-fonts": "*",
-      "satispress/wpforms": "*",
-      "satispress/wpforms-hubspot": "*",
-      "satispress/wpforms-lead-forms": "*",
-      "satispress/wpforms-user-registration": "*"
+      "satispress/kadence-custom-fonts": "*"
    },
    "require": {
       "wpackagist-theme/kadence": "*",
-      "wpackagist-plugin/akismet": "*",
-      "wpackagist-plugin/breadcrumb-navxt": "*",
       "wpackagist-plugin/create-block-theme": "*",
-      "wpackagist-plugin/filebird": "*",
-      "wpackagist-plugin/google-site-kit": "*",
       "wpackagist-plugin/kadence-blocks": "*",
-      "wpackagist-plugin/leadin": "*",
-      "wpackagist-plugin/members": "*",
-      "wpackagist-plugin/microsoft-clarity": "*",
-      "wpackagist-plugin/redirection": "*",
-      "wpackagist-plugin/safe-svg": "*",
-      "wpackagist-plugin/wordfence": "*",
-      "wpackagist-plugin/wordpress-importer": "*",
-      "wpackagist-plugin/wordpress-seo": "*",
-      "wpackagist-plugin/wp-mail-smtp": "*",
-      "wpackagist-plugin/wp-optimize": "*",
       "wpengine/advanced-custom-fields-pro": "*",
       "cedaro/satispress": "*"
    },
