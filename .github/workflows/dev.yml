@@ -43,13 +43,13 @@ jobs:
         run: npm ci
         working-directory: ./themes/hencovestarter
       - name: Mix hencurves
-        run: npx mix
+        run: npx mix -p
         working-directory: ./plugins/hencurves
       - name: mix hencurves-anchor
-        run: npx mix
+        run: npx mix -p
         working-directory: ./plugins/hencurves-anchor
       - name: Mix hencovestarter
-        run: npx mix
+        run: npx mix -p
         working-directory: ./themes/hencovestarter
       - name: GitHub Action Deploy to WP Engine
         uses: wpengine/github-action-wpe-site-deploy@v3
