@@ -41,7 +41,7 @@
 //
 //? cursor change for text links
 //? to make this work, we need to make sure the svg is encoded properly
-p:not(.is-the-menu-trigger) a,
+p:not(.is-the-menu-trigger, .is-load-more-button) a,
 footer .kb-nav-link-content {
 	@include libs.custom-cursor;
 	color: var(--wp--preset--color--contrast);

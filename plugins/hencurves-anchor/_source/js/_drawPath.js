@@ -1,4 +1,4 @@
-import { debounce } from "./_utilities";
+import { debounce, setupBreakpoints } from "./_utilities";
 import { SVG } from "@svgdotjs/svg.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,6 +10,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 		isMobile: false, // Track media query state
 
 		_init: function () {
+			this.isMobile = setupBreakpoints();
 			// Bail early if mobile
 			if (this.isMobile) return;
 
@@ -135,15 +136,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 			const reversePathDraw = false;
 			gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
-			if ($("body").hasClass("error404") || $(container).hasClass('is-about-us-hero')) {
-				gsap.fromTo(
-					".hencurve-anchors-svg path",
-					{ drawSVG: "0%" }, // Start fully hidden
-					{
-						drawSVG: "100%", // Draw to 100%
-					}
-				);
-			} else {
+			if (!$(container).hasClass('is-about-us-hero')) {
 				gsap.fromTo(
 					".hencurve-anchors-svg path",
 					{ drawSVG: reversePathDraw ? "100% 100%" : "0% 0%" }, // Start fully hidden
@@ -184,28 +177,14 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 
 	// Throttled resize handler
 	const handleResize = debounce(() => {
-		if (!HencurveAnchors.isMobile) {
-			HencurveAnchors._destroy(); // Clear the SVG instance
-			HencurveAnchors._init(); // Reinitialize on desktop resize
-		}
+		HencurveAnchors._destroy(); // Clear the SVG instance
+		HencurveAnchors._init(); // Reinitialize on desktop resize
+		
 	}, 200);
-
-	// Initialize GSAP MatchMedia
-	const mm = gsap.matchMedia();
-	const breakPoint = 1024;
-
-	mm.add(`(max-width: ${breakPoint}px)`, () => {
-		HencurveAnchors.isMobile = true;
-		HencurveAnchors._destroy(); // Destroy on mobile
-	});
-
-	mm.add(`(min-width: ${breakPoint + 1}px)`, () => {
-		HencurveAnchors.isMobile = false;
-		HencurveAnchors._init(); // Initialize on desktop
-	});
-
+	
 	// Initialize on DOMContentLoaded
 	document.addEventListener("DOMContentLoaded", () => {
+		HencurveAnchors._init();
 		window.addEventListener("resize", handleResize); // Add resize listener
 	});
 })(document, window, jQuery);

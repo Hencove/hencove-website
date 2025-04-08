@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import { addGutterLines } from "../../_utilities";
 import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
 import { SVG } from "@svgdotjs/svg.js";
 //
@@ -18,17 +19,13 @@ export const TheRiver = {
 		this.galleries = $(".wp-block-gallery", this.container);
 
 		this.container.addClass("is-shown");
-		this.addGutterLines();
+
+		addGutterLines($(".is-river-overflow-wrapper"));
+
 		this.drawSVG();
 		this.drawLine();
 		this.adjustGallery();
 		this.initMotionPath();
-	},
-
-	addGutterLines() {
-		const gutterHTML =
-			'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>';
-		$(".is-river-overflow-wrapper").append(gutterHTML);
 	},
 
 	drawSVG() {

@@ -221,13 +221,7 @@ body.page-id-78 {
 	* Linework Styles
 	*
 	*/
-	.is-make-magic-container {
-		svg.is-motion-horizontal-line {
-			position: absolute;
-			top: 50%;
-			left: 0;
-			width: 100%;
-			max-width: unset;
-		}
+	svg.divider-svg {
+		margin-block-start: 0;
 	}
 }

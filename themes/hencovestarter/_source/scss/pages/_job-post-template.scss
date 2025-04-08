@@ -4,11 +4,6 @@
 body.job-post-template-default {
 
 	.is-the-job-post-hero {
-		.gutterLineCoverUp {
-			height: calc(100% - 104px);
-			top: 104px;
-            background-color: var(--wp--preset--color--custom-accent-3-light);
-		}
 
         /*
         *
@@ -40,13 +35,17 @@ body.job-post-template-default {
 
     .job-post-anchor-list,
     .job-post-nav ul {
+        border-radius: var(--smallBoxRadius);
+        padding: 32px;
+        background-color: var(--wp--preset--color--secondary-bright);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         list-style: none;
-        padding-left: 0;
         margin-left: 0;
         margin-block-start: 0;
+        max-width: 400px;
 
-        li {
-            margin-bottom: 25px;
+        li:not(:last-child) {
+            margin-bottom: 20px;
         }
         
         a {
@@ -72,7 +71,7 @@ body.job-post-template-default {
         }
     }
 
-    @include libs.media("<desktop") {
+    @include libs.media("<=tablet") {
 
         h5,
         .is-the-job-post-hero {
@@ -98,10 +97,7 @@ body.job-post-template-default {
             .kt-row-column-wrap {
                 padding-top: 6rem;
             }
-            .gutterLineCoverUp {
-                height: calc(100% - 80px) !important;
-                top: 80px !important;
-            }
+
             figure {
                 max-width: 75%;
                 margin-left: auto;
@@ -131,13 +127,9 @@ body.job-post-template-default {
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 16px;
-            padding: 16px 32px;
             width: 90%;
-            background-color: var(--wp--preset--color--secondary-bright);
             z-index: 100;
             transition: opacity 0.3s ease, visibility 0s linear 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
             // Add close button styles
             .menu-close-button {

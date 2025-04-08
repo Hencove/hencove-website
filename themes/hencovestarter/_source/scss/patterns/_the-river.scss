@@ -27,7 +27,7 @@
 	}
 	position: relative;
 	z-index: 2;
-	min-height: 80vh;
+	min-height: 800px;
 	margin-top: 0;
 	padding: 0;
 	svg {
@@ -70,7 +70,7 @@
 				width: 100%;
 				img {
 					overflow: hidden;
-					border-radius: 16px;
+					border-radius: var(--smallBoxRadius);
 					@include libs.boxShadow(6);
 				}
 			}

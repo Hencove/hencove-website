@@ -1,6 +1,5 @@
-import { throttle, debounce } from "../../_utilities";
+import { throttle, debounce, setupBreakpoints } from "../../_utilities";
 import { gsap } from "gsap";
-import { DividerLine } from "../../experimental/_dividing-line";
 
 //
 export const ourworkHero = {
@@ -14,8 +13,6 @@ export const ourworkHero = {
     wordListRight: undefined,
 
     init: function() {
-
-        this.setupBreakpoints();
 
         this.container = $('.is-the-our-work-hero');
         this.wordListL = require('./wordListLeft.json');
@@ -43,17 +40,14 @@ export const ourworkHero = {
         $('#heroLeft').append(this.leftWordContainer);
         $('#heroRight').append(this.rightWordContainer);
 
+        this.isMobile = setupBreakpoints();
         this.resetGSAPTransforms();
 
-        // Create divider instance
-        this.adjustDivider();        
-
         const debouncedResizeHandler = debounce(() => {
-           this.setupBreakpoints();
+           this.isMobile = setupBreakpoints();
            this.resetGSAPTransforms();
            
            // Recreate divider on resize
-           this.adjustDivider();
         }, 200);
 
         // Handle window resize
@@ -61,7 +55,7 @@ export const ourworkHero = {
     },
 
     resetGSAPTransforms() {
-        // Kill existing animations
+        // // Kill existing animations
         gsap.killTweensOf([this.leftWordContainer, this.rightWordContainer]);
     
         // Force reset transform values and remove inline styles
@@ -80,34 +74,6 @@ export const ourworkHero = {
             this.initWordSelect();
         }, 250);
     },
-    
-
-    adjustDivider() {
-
-        this.heroDivider = new DividerLine(this.container[0], false, 5, 0);
-
-        if (!this.isMobile) {
-            const offset = $('.heroWord').offset().top;
-            this.heroDivider.updatePosition(offset);
-        } else {
-            const offset = $('video').offset().top + $('video').outerHeight() * 0.5;
-            this.heroDivider.updatePosition(offset);
-        }
-    },
-
-    // Setup breakpoints with GSAP MatchMedia
-	setupBreakpoints() {
-		const mm = gsap.matchMedia();
-		const breakPoint = 1024;
-
-		mm.add(`(max-width: ${breakPoint}px)`, () => {
-			this.isMobile = true;
-		});
-
-		mm.add(`(min-width: ${breakPoint + 1}px)`, () => {
-			this.isMobile = false;
-		});
-	},
 
     updateWords(oldIndex, wordList, container) {
         const wordHeight = $('#heroLeft h1').outerHeight(true);

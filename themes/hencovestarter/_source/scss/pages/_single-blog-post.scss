@@ -3,21 +3,6 @@
 //
 //
 .single-post {
-	.entry-content {
-		&:before,
-		&:after {
-			top: -210px;
-			height: calc(100% + 210px);
-		}
-	}
-
-	.is-the-post-hero {
-		.gutterLineCoverUp {
-			height: calc(100% - 264px);
-			top: 104px;
-		}
-	}
-
 	//
 	.is-the-post-hero {
 		//
@@ -47,24 +32,14 @@
 				height: 15%;
 			}
 			//
-			//* Mobile
 		}
 		.wp-block-kadence-dynamiclist.kb-dynamic-list {
 			//
-			// gap: 1.5em;
 			gap: unset;
-			//* Tablet
-			@include libs.media("<=tablet") {
-				// gap: 1em;
-			}
-			//
 			//
 			//* Styling Tags
 			li.kb-dynamic-list-item {
-				//
-				// border: 2px solid var(--wp--preset--color--contrast);
-				// border-radius: 10px;
-				// padding: 8px 42px;
+
 				a.kb-dynamic-list-item-link {
 					//
 					text-decoration: none;

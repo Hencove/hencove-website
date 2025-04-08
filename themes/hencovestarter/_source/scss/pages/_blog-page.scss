@@ -32,7 +32,6 @@ body.page-id-80 {
 
 	.wp-block-kadence-query-filter-search {
 		&:not(.is-shown) {
-			// display: none;
 			visibility: hidden;
 		}
 	}
@@ -157,7 +156,7 @@ body.page-id-80 {
 			top: 70%;
 			left: 50%;
 			transform: translateX(-50%);
-			border-radius: 16px;
+			border-radius: var(--smallBoxRadius);
 			padding: 32px;
 			width: 100%;
 			background-color: var(--wp--preset--color--secondary-bright);
@@ -188,10 +187,19 @@ body.page-id-80 {
 						background-color: transparent;
 						padding: unset;
 						border: unset;
+
+						&::placeholder {
+							color: var(--wp--preset--color--contrast) !important;
+							font-size: var(--wp--preset--font-size--large);
+						}
 					}
 					.kb-filter-search-btn {
+						justify-content: end;
+						right: 2px;
 						svg {
-							display: none;
+							width: 1.3em;
+							height: 1.3em;
+							color: var(--wp--preset--color--contrast) !important;
 						}
 					}
 					&::after {

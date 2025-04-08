@@ -10,10 +10,13 @@ const jsFiles = {
 		"_source/js/pages/job-posts-template.js",
 		"_source/js/pages/blog.js",
 		"_source/js/pages/home.js",
+		"_source/js/pages/custom-404.js"
 	],
 	patterns: [
 		"_source/js/patterns/blog-posts.js",
 		"_source/js/patterns/_pinwheelMotionpath.js",
+		"_source/js/patterns/swiper.js",
+		"_source/js/patterns/header.js",
 	],
 };
 

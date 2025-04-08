@@ -1,6 +1,5 @@
-import Isotope from '../../isotope.pkgd';
+import { throttle, debounce, setupBreakpoints } from "../../_utilities";
 
-//
 export const ourworkTabs = {
 	container: undefined,
 	tabsBlock: undefined,
@@ -8,7 +7,7 @@ export const ourworkTabs = {
 	contentWrapper: undefined,
 	detachedWrapper: undefined,
     menuTrigger: undefined,
-
+	isMobile: false,
 	init: function() {
 		// Find the container and set up other elements
 		this.container = $(".is-the-detached-tabs-container");
@@ -37,27 +36,50 @@ export const ourworkTabs = {
 
 		// Bind event listeners to newly cloned tabs
 		this.bindEventListeners();
-		this.initIsotope();
+		this.isMobile = setupBreakpoints();
+		this.resizeMedia();
+		const debouncedResizeHandler = debounce(() => {
+			this.isMobile = setupBreakpoints();
+			this.resizeMedia();
+		 }, 200);
+ 
+		 // Handle window resize
+		 window.addEventListener("resize", debouncedResizeHandler);
 	},
 
-	initIsotope() {
-		
-		var groups = document.querySelectorAll('.tab-item-group');
+	resizeMedia() {
+		if (!this.isMobile) {
+			return;
+		}
 
-		groups.forEach(function(group) {
+		const grids = $('.our-work-grid');
 
-			var iso = new Isotope( group, {
-				// options
-				layoutMode: 'masonry',
-				itemSelector: '.grid-item',
-				percentPosition: true,
-				masonry : {
-					columnWidth: '.grid-sizer',
-					// horizontalOrder: true,
+		grids.each((index, grid) => {
+			const gridItems = $(grid).children();
+
+			gridItems.each((index, item) => {
+
+				let spanColumns;
+				let spanRows;
+
+				if ($(item).css('grid-column')) {
+					spanColumns = parseInt($(item).css('grid-column').replace('span ', ''));
+					spanRows = parseInt($(item).css('grid-row').replace('span ', ''));
+
+				} else if ($(item).css('grid-area')) {
+					spanColumns = parseInt($(item).css('grid-area').split(' ')[0].replace('span ', ''));
+					spanRows = parseInt($(item).css('grid-area').split(' ')[1].replace('span ', ''));
 				}
+
+				if (spanColumns == 3 || spanColumns == 4) {
+					$(item).addClass('mobile-grid-item-full-width');
+				} else if (spanColumns == 1 || (spanColumns == 2 && spanRows == 1) || (spanColumns == 2 && !spanRows)) {
+					$(item).addClass('mobile-grid-item-half-width');
+				}
+				
 			});
+
 		});
-	
 	},
 
 	moveTabs() {
@@ -74,7 +96,6 @@ export const ourworkTabs = {
 
         // Hide the original tabsWrapper
 		this.tabsWrapper.hide();
-
 	},
 
 	bindEventListeners() {
@@ -123,7 +144,6 @@ export const ourworkTabs = {
         this.detachedWrapper
             .off("click.b2bMenu", "a")
             .on("click.b2bMenu", "a", (event) => {
-                // console.log(event);
                 event.preventDefault();
                 event.stopPropagation();
             });

@@ -152,6 +152,13 @@ class SetupTheme
 				true
 			);
 			wp_register_script(
+				'404-page',
+				get_template_directory_uri() . '/_build/js/pages/custom-404.js',
+				array('jquery'),
+				filemtime(get_template_directory() . '/_build/js/pages/custom-404.js'),
+				true
+			);
+			wp_register_script(
 				'blog-post-cards',
 				get_template_directory_uri() . '/_build/js/patterns/blog-posts.js',
 				array('jquery'),
@@ -165,10 +172,20 @@ class SetupTheme
 				filemtime(get_template_directory() . '/_build/js/patterns/_pinwheelMotionpath.js'),
 				true
 			);
-
-
-			
-
+			wp_register_script(
+				'swiper',
+				get_template_directory_uri() . '/_build/js/patterns/swiper.js',
+				array('jquery'),
+				filemtime(get_template_directory() . '/_build/js/patterns/swiper.js'),
+				true
+			);
+			wp_register_script(
+				'header',
+				get_template_directory_uri() . '/_build/js/patterns/header.js',
+				array('jquery'),
+				filemtime(get_template_directory() . '/_build/js/patterns/header.js'),
+				true
+			);
 
 			/* 
 
@@ -189,16 +206,33 @@ class SetupTheme
 
 			wp_enqueue_script('select2Scripts');
 			wp_enqueue_script('swiperjs');
+			wp_enqueue_script('header');
 
-
-			wp_enqueue_script('about-page');
-			wp_enqueue_script('blog-post-single');
-			wp_enqueue_script('blog-page');
-			wp_enqueue_script('our-work-page');
-			wp_enqueue_script('home-page');
-			wp_enqueue_script('blog-post-cards');
-			wp_enqueue_script('job-posts-template');
-			wp_enqueue_script('pinwheel');
+			if (is_page('9')) {
+				wp_enqueue_script('home-page');
+				wp_enqueue_script('pinwheel');
+				wp_enqueue_script('blog-post-cards');
+			}
+			if (is_page('78')) {
+				wp_enqueue_script('about-page');
+			}
+			if (is_page('80')) {
+				wp_enqueue_script('blog-page');
+				wp_enqueue_script('blog-post-cards');
+			}
+			if (is_page('79')) {
+				wp_enqueue_script('our-work-page');
+				wp_enqueue_script('swiper');
+				wp_enqueue_script('blog-post-cards');
+			}
+			if (is_single()) {
+				wp_enqueue_script('blog-post-single');
+				wp_enqueue_script('swiper');
+				wp_enqueue_script('job-posts-template');
+			}
+			if (is_404()) {
+				wp_enqueue_script('404-page');
+			}
 		});
 	}
 

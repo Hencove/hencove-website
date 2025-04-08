@@ -1,12 +1,18 @@
 // Import dependencies
-import { throttle, debounce } from "../_utilities";
+import { debounce, setupBreakpoints, addGutterLines } from "../_utilities";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { DividerLine } from "../experimental/_dividing-line";
 
 // Add MobileNavigation class before JobPostPage class
 class MobileNavigation {
+    isMobile;
+    jobDescription;
+    headings;
+    anchorList;
+
     constructor() {
+        this.isMobile = setupBreakpoints();
         this.jobDescription = $('.entry-content');
         this.headings = this.jobDescription.find('h5');
         this.anchorList = $('.job-post-anchor-list');
@@ -87,6 +93,37 @@ class MobileNavigation {
                 this.anchorList.addClass('is-shown');
             }
         });
+
+        // Register GSAP plugin first
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Setup scroll triggers for each heading
+        this.headings.each((i, heading) => {
+            const listItem = this.anchorList.find('li').eq(i);
+            this.createScrollTrigger(heading, listItem);
+        });
+    }
+
+    createScrollTrigger(heading, listElement) {
+        const navItem = $(listElement).find('a');
+        const sectionHeight = $(heading).parent().outerHeight(true);
+
+        ScrollTrigger.create({
+            trigger: heading,
+            start: "top 40%",
+            end: `+=${sectionHeight}`,
+            scrub: 1,
+            onEnter: () => this.updateActiveNavItem(navItem),
+            onEnterBack: () => this.updateActiveNavItem(navItem),
+            onLeave: () => navItem.removeClass('is-active'),
+            onLeaveBack: () => navItem.removeClass('is-active'),
+        });
+    }
+    
+    updateActiveNavItem(navItem) {
+        // Update selector to target both desktop and mobile navigation
+        $('.job-post-anchor-list a, .job-post-anchor-list-mobile a').removeClass('is-active');
+        navItem.addClass('is-active');
     }
 
     setupAnchorLinks() {
@@ -127,6 +164,10 @@ class MobileNavigation {
 
 // Create a JobPostPage class to encapsulate functionality
 class JobPostPage {
+    isMobile;
+    heroDivider;
+    crewDivider;
+
     constructor() {
         this.isMobile = false;
         this.heroDivider = null;
@@ -136,7 +177,7 @@ class JobPostPage {
 
     init() {
         document.addEventListener("DOMContentLoaded", () => {
-            this.setupBreakpoints();
+            this.isMobile = setupBreakpoints();
             this.setupGutterLines(); 
             this.setupDividers();
             this.setupResizeHandler();
@@ -148,9 +189,8 @@ class JobPostPage {
     }
 
     setupGutterLines() {
-        const gutterMarkup = '<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>';
-        $(".is-the-job-post-hero").append(gutterMarkup);
-        $("#join-the-crew").append(gutterMarkup);
+        addGutterLines(".is-the-job-post-hero");
+        addGutterLines("#join-the-crew");
     }
 
     setupDividers() {
@@ -161,7 +201,7 @@ class JobPostPage {
 
     setupResizeHandler() {
         const debouncedResizeHandler = debounce(() => {
-            this.setupBreakpoints();
+            this.isMobile = setupBreakpoints();
             // Remove existing navigation before setting up new one
             $('.job-post-anchor-list').removeClass('is-shown');
             $('.wp-block-heading').removeClass('active-trigger');
@@ -186,19 +226,6 @@ class JobPostPage {
         } else {
             this.setupAnchorNavMobile();
         }
-    }
-
-    setupBreakpoints() {
-        const mm = gsap.matchMedia();
-        const breakPoint = 1024;
-
-        mm.add(`(max-width: ${breakPoint}px)`, () => {
-            this.isMobile = true;
-        });
-
-        mm.add(`(min-width: ${breakPoint + 1}px)`, () => {
-            this.isMobile = false;
-        });
     }
 
     setupAnchorLinks() {
@@ -229,10 +256,12 @@ class JobPostPage {
             const $heading = $(heading);
             const listItem = $(`<li><a href="#${$heading.attr('id')}">${$heading.text()}</a></li>`);
             anchorList.append(listItem);
+            listItem.find('a').addClass('has-accent-underline');
+
         });
 
         // Add the Apply Now link
-        const joinCrewLink = $('<li><a href="#join-the-crew" class="has-large-font-size">Apply Now</a></li>');
+        const joinCrewLink = $('<li><a href="#join-the-crew">Apply Now</a></li>');
         anchorList.append(joinCrewLink);
     }
 
@@ -242,7 +271,6 @@ class JobPostPage {
         const listElements = $('.job-post-anchor-list').children();
 
         listElements.find('a').addClass('has-accent-underline');
-        listElements.find('a').addClass('has-large-font-size');
 
         // Add click handler for anchor links
         listElements.find('a').on('click', (e) => {
@@ -270,6 +298,8 @@ class JobPostPage {
     createScrollTrigger(heading, listElement) {
         const navItem = $(listElement).find('a');
         const sectionHeight = $(heading).parent().outerHeight(true);
+
+        gsap.registerPlugin(ScrollTrigger);
 
         ScrollTrigger.create({
             trigger: heading,
@@ -340,7 +370,7 @@ class JobPostPage {
             const para = hero.find('.kt-inside-inner-col p');
             const headingBottom = heading.offset().top + heading.height();
             const paraTop = para.offset().top;
-            const middlePosition = headingBottom + ((paraTop - headingBottom) / 2) - 40;
+            const middlePosition = headingBottom + ((paraTop - headingBottom) / 2);
             this.heroDivider.updatePosition(middlePosition);
         }
     }
