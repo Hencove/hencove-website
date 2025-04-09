@@ -28,10 +28,10 @@ export const HustleCards = {
 		this.setupCards();
 		this.pinSection();
 		this.handleCardTriggers();
-		this.setupDivider();
+		// this.setupDivider();
 
 		const debouncedResizeHandler = debounce(() => {
-			this.setupDivider();
+			// this.setupDivider();
 		}, 200);
 
 		window.addEventListener("resize", debouncedResizeHandler);
@@ -39,10 +39,12 @@ export const HustleCards = {
 
 	setupDivider() {
 		this.divider = new DividerLine(this.container[0], true, 1, 5000);
-		
-		const headingTop = $('.is-make-magic-container').find('h2').offset().top;
-		const headingBottom = $('.is-make-magic-container').find('.is-magic-text').offset().top;
-		const dividerOffset = ((headingBottom - headingTop));
+
+		const headingTop = $(".is-make-magic-container").find("h2").offset().top;
+		const headingBottom = $(".is-make-magic-container")
+			.find(".is-magic-text")
+			.offset().top;
+		const dividerOffset = headingBottom - headingTop;
 
 		this.divider.updatePosition(dividerOffset);
 	},
@@ -107,14 +109,14 @@ export const HustleCards = {
 				},
 			});
 		});
-		
+
 		const lastCard = reversedCards[reversedCards.length - 1];
 
-		gsap.to($('.is-magic-text'), {
-			opacity: 1, 
+		gsap.to($(".is-magic-text"), {
+			opacity: 1,
 			scrollTrigger: {
 				trigger: lastCard,
-				start: `${offsetBy}px 50%`, 
+				start: `${offsetBy}px 50%`,
 				end: `+=100px`, // Animation duration
 				scrub: 1,
 				// markers: true,
