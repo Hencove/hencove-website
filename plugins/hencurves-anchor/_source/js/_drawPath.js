@@ -136,7 +136,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 			const reversePathDraw = false;
 			gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin);
 
-			if (!$(container).hasClass('is-about-us-hero')) {
+			if (!$(container).hasClass("is-about-us-hero")) {
 				gsap.fromTo(
 					".hencurve-anchors-svg path",
 					{ drawSVG: reversePathDraw ? "100% 100%" : "0% 0%" }, // Start fully hidden
@@ -179,9 +179,8 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 	const handleResize = debounce(() => {
 		HencurveAnchors._destroy(); // Clear the SVG instance
 		HencurveAnchors._init(); // Reinitialize on desktop resize
-		
 	}, 200);
-	
+
 	// Initialize on DOMContentLoaded
 	document.addEventListener("DOMContentLoaded", () => {
 		HencurveAnchors._init();
