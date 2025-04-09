@@ -18,11 +18,12 @@ export const AboutHero = {
 
 		const debouncedResizeHandler = debounce(() => {
 			this.isMobile = setupBreakpoints();
-		 }, 200);
- 
-		 // Handle window resize
-		 
-		 window.addEventListener("resize", debouncedResizeHandler);
+			this.positionBee();
+		}, 200);
+
+		// Handle window resize
+
+		window.addEventListener("resize", debouncedResizeHandler);
 	},
 
 	positionBee() {
@@ -41,10 +42,10 @@ export const AboutHero = {
 		} else {
 			// Snap the bee to the updated path
 			gsap.set(bee, {
-			motionPath: {
-				path: pathElement,
-				align: pathElement,
-				alignOrigin: [0.5, 0.5],
+				motionPath: {
+					path: pathElement,
+					align: pathElement,
+					alignOrigin: [0.5, 0.5],
 					start: 0.55,
 					end: 0.55,
 				},
@@ -57,5 +58,5 @@ export const AboutHero = {
 		document.addEventListener("hencurvesPathReady", (event) => {
 			this.positionBee(); // Snap the bee to the path when it's ready
 		});
-	}
+	},
 };

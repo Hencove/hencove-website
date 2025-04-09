@@ -28,7 +28,7 @@ export const App = {
 
 		// Handle window resizing globally
 		const handleResize = debounce(() => {
-			AboutHero.positionBee();
+			// AboutHero.positionBee();
 			TheRiver.handleResize();
 		}, 200);
 
