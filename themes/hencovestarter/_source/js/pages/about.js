@@ -18,9 +18,9 @@ export const App = {
 		document.addEventListener("DOMContentLoaded", () => {
 			// Initialize modules
 			AboutHero.init();
-			HustleCards.init();
-			TeamFilters.init();
-			TheRiver.init();
+			// HustleCards.init();
+			// TeamFilters.init();
+			// TheRiver.init();
 
 			// Ensure all ScrollTriggers are recalculated
 			// ScrollTrigger.refresh();

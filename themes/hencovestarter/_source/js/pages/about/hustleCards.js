@@ -28,10 +28,10 @@ export const HustleCards = {
 		this.setupCards();
 		this.pinSection();
 		this.handleCardTriggers();
-		// this.setupDivider();
+		this.setupDivider();
 
 		const debouncedResizeHandler = debounce(() => {
-			// this.setupDivider();
+			this.setupDivider();
 		}, 200);
 
 		window.addEventListener("resize", debouncedResizeHandler);
