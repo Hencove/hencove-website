@@ -17,18 +17,18 @@ export const App = {
 	init() {
 		document.addEventListener("DOMContentLoaded", () => {
 			// Initialize modules
-			AboutHero.init();
-			// HustleCards.init();
-			// TeamFilters.init();
-			// TheRiver.init();
-
+			window.addEventListener("load", () => {
+				AboutHero.init();
+				HustleCards.init();
+				TeamFilters.init();
+				TheRiver.init();
+			});
 			// Ensure all ScrollTriggers are recalculated
 			// ScrollTrigger.refresh();
 		});
 
 		// Handle window resizing globally
 		const handleResize = debounce(() => {
-			// AboutHero.positionBee();
 			TheRiver.handleResize();
 		}, 200);
 
