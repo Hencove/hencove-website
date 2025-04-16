@@ -3,18 +3,15 @@
 //
 //
 //
-:root {
-	--hero-offset: 80px;
-}
 
 body.error404,
-article,
+main > article,
 body:not(.job-post-template-default) .entry-content {
 	&:before,
 	&:after {
 		content: "";
 		height: calc(100% - var(--hero-offset));
-		width: 6px;
+		width: var(--strokeWidth);
 		background-color: var(--wp--preset--color--secondary);
 		position: absolute;
 		z-index: 3;
@@ -28,11 +25,11 @@ body:not(.job-post-template-default) .entry-content {
 	@include libs.media("<=desktop") {
 		&::before {
 			left: 16px;
-			width: 4px;
+			width: var(--strokeWidth);
 		}
 		&:after {
 			right: 16px;
-			width: 4px;
+			width: var(--strokeWidth);
 		}
 	}
 }
@@ -43,7 +40,7 @@ body:not(.job-post-template-default) .entry-content {
 	margin: 0;
 	padding: 0;
 	background-color: var(--wp--preset--color--primary);
-	width: 6px;
+	width: var(--strokeWidth);
 	top: 0;
 	left: auto;
 	right: auto;
@@ -57,7 +54,7 @@ body:not(.job-post-template-default) .entry-content {
 	}
 
 	@include libs.media("<=desktop") {
-		width: 4px;
+		width: var(--strokeWidth);
 
 		&.left {
 			left: 16px;
@@ -71,22 +68,29 @@ body:not(.job-post-template-default) .entry-content {
 @include libs.media("<=desktop") {
 	svg.divider-svg {
 		path {
-			stroke-width: 4;
+			stroke-width: var(--strokeWidth);
 		}
 	}
 }
 
 // HERO POSITIONS
+body.error404 .wp-site-blocks > .wp-block-group,
 .is-the-homepage-hero,
 .is-the-our-work-hero,
 .is-the-job-post-hero,
-.is-the-about-us-hero {
+.is-about-us-hero,
+.is-the-post-hero {
 	.gutterLineCoverUp {
 		height: calc(100% - var(--hero-offset));
 		top: var(--hero-offset);
 	}
 }
 
+.is-about-us-hero {
+	.gutterLineCoverUp {
+		height: calc(100% - 200px);
+	}
+}
 
 // home page
 body.home .entry-content {
@@ -168,6 +172,29 @@ body.job-post-template-default {
 	.is-the-job-post-hero {
 		.gutterLineCoverUp {
             background-color: var(--wp--preset--color--custom-accent-3-light);
+		}
+	}
+}
+// blog post
+body.single-post {
+
+	.entry-content {
+
+		&:before,
+		&:after {
+			top: -210px;
+			height: calc(100% + 210px);
+		}
+	}
+	.is-the-post-hero {
+		.gutterLineCoverUp {
+			height: calc(100% - 240px);
+		}
+
+		@include libs.media("<desktop") {
+			.gutterLineCoverUp {
+				height: calc(100% - 185px);
+			}
 		}
 	}
 }

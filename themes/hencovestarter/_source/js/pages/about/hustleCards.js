@@ -1,11 +1,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { DividerLine } from "../../experimental/_dividing-line";
+import { debounce } from "../../_utilities";
 
 export const HustleCards = {
 	container: undefined,
 	cardContainer: undefined,
 	cards: undefined,
-
+	divider: undefined,
 	// Hoisted animation configuration
 	cardAnimationLength: 800, // Duration for each card animation
 	gapLength: 200, // Gap between consecutive card animations
@@ -26,6 +28,25 @@ export const HustleCards = {
 		this.setupCards();
 		this.pinSection();
 		this.handleCardTriggers();
+		this.setupDivider();
+
+		const debouncedResizeHandler = debounce(() => {
+			this.setupDivider();
+		}, 200);
+
+		window.addEventListener("resize", debouncedResizeHandler);
+	},
+
+	setupDivider() {
+		this.divider = new DividerLine(this.container[0], true, 1, 5000);
+
+		const headingTop = $(".is-make-magic-container").find("h2").offset().top;
+		const headingBottom = $(".is-make-magic-container")
+			.find(".is-magic-text")
+			.offset().top;
+		const dividerOffset = headingBottom - headingTop;
+
+		this.divider.updatePosition(dividerOffset);
 	},
 
 	/**
@@ -88,14 +109,14 @@ export const HustleCards = {
 				},
 			});
 		});
-		
+
 		const lastCard = reversedCards[reversedCards.length - 1];
 
-		gsap.to($('.is-magic-text'), {
-			opacity: 1, 
+		gsap.to($(".is-magic-text"), {
+			opacity: 1,
 			scrollTrigger: {
 				trigger: lastCard,
-				start: `${offsetBy}px 50%`, 
+				start: `${offsetBy}px 50%`,
 				end: `+=100px`, // Animation duration
 				scrub: 1,
 				// markers: true,

@@ -7,8 +7,11 @@
     "/_build/js/pages/job-posts-template.js": "/_build/js/pages/job-posts-template.js",
     "/_build/js/pages/blog.js": "/_build/js/pages/blog.js",
     "/_build/js/pages/home.js": "/_build/js/pages/home.js",
+    "/_build/js/pages/custom-404.js": "/_build/js/pages/custom-404.js",
     "/_build/js/patterns/blog-posts.js": "/_build/js/patterns/blog-posts.js",
     "/_build/js/patterns/_pinwheelMotionpath.js": "/_build/js/patterns/_pinwheelMotionpath.js",
+    "/_build/js/patterns/swiper.js": "/_build/js/patterns/swiper.js",
+    "/_build/js/patterns/header.js": "/_build/js/patterns/header.js",
     "/_build/css/block-styles.css": "/_build/css/block-styles.css",
     "/_build/css/editor-styles.css": "/_build/css/editor-styles.css",
     "/_build/css/styles.css": "/_build/css/styles.css"

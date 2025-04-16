@@ -21,6 +21,8 @@
 		"@svgdotjs/svg.js": "^3.2.4",
 		"gsap": "npm:@gsap/shockingly@^3.12.5",
 		"isotope-layout": "^3.0.6",
+		"jquery": "^3.7.1",
+		"isotope-masonry-horizontal": "^2.0.1",
 		"lottie-web": "^5.12.2",
 		"swiper": "^11.2.0",
 		"wcag-contrast": "^3.0.0"

@@ -1,4 +1,4 @@
-import { debounce } from "./_utilities";
+import { debounce, setupBreakpoints } from "./_utilities";
 import { SVG } from "@svgdotjs/svg.js";
 import { gsap } from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
@@ -15,7 +15,7 @@ const pageDraw = {
 
 	// Initialization
 	init() {
-		this.setupBreakpoints();
+		this.isMobile = setupBreakpoints();
 
 		// Destroy previous animations before reinitializing
 		this.destroy();
@@ -34,20 +34,6 @@ const pageDraw = {
 			} else {
 				this.drawSVGs(block);
 			}
-		});
-	},
-
-	// Setup breakpoints with GSAP MatchMedia
-	setupBreakpoints() {
-		const mm = gsap.matchMedia();
-		const breakPoint = 1024;
-
-		mm.add(`(max-width: ${breakPoint}px)`, () => {
-			this.isMobile = true;
-		});
-
-		mm.add(`(min-width: ${breakPoint + 1}px)`, () => {
-			this.isMobile = false;
 		});
 	},
 

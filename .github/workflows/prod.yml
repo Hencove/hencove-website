@@ -1,0 +1,74 @@
+# Deploy to WP Engine Dev environment
+# https://wpengine.com/support/environments/#About_Environments
+name: Deploy to prod
+on:
+  push:
+    branches:
+      - main
+jobs:
+  Deploy-to-WP-Engine-Production:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Preparing to deploy to WP Engine prod"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install hencurves GSAP
+        env:
+          GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
+        run: npm install gsap@npm:@gsap/shockingly
+        working-directory: ./plugins/hencurves
+      - name: Install hencurves dependencies
+        env:
+          GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
+        run: npm ci
+        working-directory: ./plugins/hencurves
+      - name: Install hencurves-anchor GSAP
+        env:
+          GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
+        run: npm install gsap@npm:@gsap/shockingly
+        working-directory: ./plugins/hencurves-anchor
+      - name: Install hencurves-anchor dependencies
+        run: npm ci
+        working-directory: ./plugins/hencurves-anchor
+      - name: Install hencovestarter GSAP
+        env:
+          GSAP: ${{ secrets.GSAP_KEY_PRIVATE }}
+        run: npm install gsap@npm:@gsap/shockingly
+        working-directory: ./themes/hencovestarter
+      - name: Install hencovestarter dependencies
+        run: npm ci
+        working-directory: ./themes/hencovestarter
+      - name: Mix hencurves
+        run: npx mix -p
+        working-directory: ./plugins/hencurves
+      - name: mix hencurves-anchor
+        run: npx mix -p
+        working-directory: ./plugins/hencurves-anchor
+      - name: Mix hencovestarter
+        run: npx mix -p
+        working-directory: ./themes/hencovestarter
+      - name: GitHub Action Deploy to WP Engine
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          # Deploy vars
+          # https://github.com/wpengine/github-action-wpe-site-deploy?tab=readme-ov-file#environment-variables--secrets
+
+          # The private RSA key you will save in the Github Secrets
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          # Destination to deploy to WPE
+          # Change to your environment name
+          WPE_ENV: hencove
+
+          # Deploy options
+
+          # An optional destination directory to deploy
+          # to other than the WordPress root.
+          REMOTE_PATH: "wp-content/"
+          # Optional flags for the deployment
+          FLAGS: -azvr --inplace --delete --include-from=.deployinclude --exclude=.* --exclude-from=.deployignore
+          # File containing custom scripts run after the rsync
+          SCRIPT: wp-content/bin/post-deploy.sh

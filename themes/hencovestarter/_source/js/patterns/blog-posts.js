@@ -64,6 +64,7 @@
 		},
 
 		_reorgForMobile: function (coverBlock) {
+			
 			let textGroup = $(coverBlock)
 				.find(".wp-block-cover__inner-container")
 				.clone();

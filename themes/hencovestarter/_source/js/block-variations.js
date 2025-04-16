@@ -19,3 +19,4 @@ wp.blocks.registerBlockVariation("core/search", {
 		},
 	},
 });
+

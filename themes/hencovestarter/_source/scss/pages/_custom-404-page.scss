@@ -1,0 +1,42 @@
+@use "../libs/" as libs;
+/*
+
+404 page styles
+
+*/
+
+body.error404 {
+    overflow: hidden;
+
+    .wp-site-blocks > .wp-block-group {
+        align-content: center;
+        margin-block-start: 0;
+
+        .wp-block-group {
+            z-index: 2;
+        }
+
+        h1.wp-block-heading {
+            // font-size: 160px !important;
+            @include libs.rfs(160px);
+        }
+
+        .wp-block-heading {
+            margin-block-start: 0;
+        }
+
+        svg {
+            position: absolute;
+            max-width: 100%;
+            top: -40px;
+            left: 0;
+            z-index: 0;
+        }
+
+        @include libs.media('<desktop'){
+            .wp-block-heading {
+                max-width: 80%;
+            }
+        }
+    }
+}

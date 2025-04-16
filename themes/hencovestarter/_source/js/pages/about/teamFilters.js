@@ -1,6 +1,6 @@
+import { setupBreakpoints, handleHEVC } from "../../_utilities";
 //
 //
-
 const TeamData = {
 	bees: {
 		postID: 47,
@@ -35,104 +35,78 @@ const TeamData = {
 const TeamClipData = {
 	386: {
 		name: "Abbie Nelson",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/abbie_2.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/abbie.webm`,
 	},
 	387: {
 		name: "Abby Wilson",
-		clipURL: undefined,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/abby.webm`,
 	},
 	376: {
 		name: "Alana Caporale",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/alana_1.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/alana.webm`,
 	},
 	325: {
 		name: "Alex Bouthillier",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/alex.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/alex.webm`,
 	},
 	388: {
 		name: "Allison Lyles",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/allison.webm`,
-	},
-	389: {
-		name: "Amy Hollshwander",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/amy.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/allison.webm`,
 	},
 	396: {
 		name: "Cassie Kuchma",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/cassie_1.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/cassie.webm`,
 	},
 	399: {
 		name: "Chih-Yuan Chang (Jacky)",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/jacky.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/jacky.webm`,
 	},
 	397: {
 		name: "Claire Collins",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/claire.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/claire.webm`,
 	},
 	398: {
 		name: "Daniel Black",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/daniel_1.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/daniel.webm`,
 	},
 	2403: {
 		name: "Ellie Lester",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/ellie_1.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/ellie.webm`,
 	},
 	400: {
 		name: "Kerrianne Keogh",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/kerianne.webm`,
-	},
-	373: {
-		name: "Kyle Marcy",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/02/kyle.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/kerianne.webm`,
 	},
 	2406: {
 		name: "Liz Duplay",
-		clipURL: `${window.location.origin}/wp-content/uploads/2024/12/liz.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/liz.webm`,
 	},
 	402: {
 		name: "Mary Hoffman",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/mary.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/mary.webm`,
 	},
 	403: {
 		name: "Mel Dunn",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/mel.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/mel.webm`,
 	},
 	404: {
 		name: "Tony Fontana",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/tony.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/tony.webm`,
 	},
 	405: {
 		name: "Will Macowski",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/01/will.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/will.webm`,
+	},
+	3060: {
+		name: "Jonathan Bell",
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/jonathan.webm`,
 	},
 };
 
 //
 //
-//
-function preloadTeamClips() {
-	Object.values(TeamClipData).forEach((teamMember) => {
-		if (teamMember.clipURL) {
-			// Create a hidden video element to preload the clip
-			const video = document.createElement("video");
-			video.src = teamMember.clipURL;
-			video.preload = "auto"; // Preload the video
-			video.style.display = "none"; // Keep it hidden
-			document.body.appendChild(video); // Add it to the DOM to start preloading
-		}
-	});
-
-	console.log("All team clips preloaded!");
-}
-document.addEventListener("DOMContentLoaded", () => {
-	const section = document.querySelector(".is-team-grid-outer-container");
-	if (!section) return;
-	preloadTeamClips(); // Preload video clips
-});
-
-//
-//
 export const TeamFilters = {
+	isMobile: false,
 	outerContainer: undefined,
 	queryBlockContainer: undefined,
 	filtersContainer: undefined,
@@ -143,9 +117,9 @@ export const TeamFilters = {
 	//
 	//
 	init() {
-		// * note, you're already in DOMContentLoaded here!
-		// maybe bail early... otherwise hoist queries to the DOM
+		this.outerContainer = $(".is-team-grid-outer-container");
 		this.cacheElements();
+		this.isMobile = setupBreakpoints();
 		// DOM manipulation to set up initial state
 		this.reorderLayout();
 		this.fetchNewTeamClips();
@@ -153,6 +127,8 @@ export const TeamFilters = {
 		this.checkForQuery();
 		// bind/re-bind events after AJAX rebuilds the DOM
 		this.bindEvents();
+
+		handleHEVC(this.outerContainer);
 	},
 	//
 	//	* 		find all team member <li>
@@ -163,6 +139,7 @@ export const TeamFilters = {
 		//
 		teamCards.each((index, card) => this.loadTeamClip(card));
 	},
+	
 	//
 	//	*		for each team member, load their webm clip into the card
 
@@ -204,13 +181,10 @@ export const TeamFilters = {
 			.on("mouseenter", () => videoElement[0]?.play())
 			.on("mouseleave", () => videoElement[0]?.pause());
 	},
-
 	//
 	//
 	cacheElements() {
 		//
-		this.outerContainer = $(".is-team-grid-outer-container");
-
 		// Return early if outerContainer is not found
 		if (!this.outerContainer.length) {
 			// console.warn("Outer container not found. Exiting cacheElements.");
@@ -275,12 +249,6 @@ export const TeamFilters = {
 			this.fetchButtonMetadata();
 			this.togglePopUpCard();
 		});
-
-		// document.addEventListener("kb-query-filter-update", (event) => {
-		// 	console.log("Hook: kb-query-filter-update", event);
-		// 	const button = $(event.target).find('button[aria-pressed="true"]');
-		// 	const value = $(button).data("value");
-		// });
 	},
 	//
 	//
@@ -421,7 +389,7 @@ export const TeamFilters = {
 
 		// console.log("Popup card activated.");
 		const windowSize = $(window).width();
-		if (windowSize > 1024){
+		if (!this.isMobile){
 			this.shiftMascot();
 		} else {
 			this.shiftMascotMobile();

@@ -1,46 +1,58 @@
-import { throttle, debounce } from '../_utilities';
-import { SVG } from "@svgdotjs/svg.js";
+import { debounce, addGutterLines } from '../_utilities';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import DrawSVGPlugin from "gsap/DrawSVGPlugin";
-
+import { DividerLine } from "../experimental/_dividing-line";
 import { MonthFilterHandler } from "./home/monthFilters";
-import { MotionPathPlugin } from "gsap/all";
 
-//
-//
-gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(DrawSVGPlugin);
-(function (document, window, $) {
-	//
-	//
-	MonthFilterHandler.init();
+export const Home = {
+	dividerContainer: undefined,
+	divider: undefined,
+	
+	init() {
+		//
+		//
+		gsap.registerPlugin(ScrollTrigger);
 
-	document.addEventListener("DOMContentLoaded", () => {
-		$(".is-the-homepage-hero").append(
-			'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-		);
-		$(".is-ditto-coverup").append(
-			'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-		);
+		MonthFilterHandler.init();
 
+		addGutterLines(".is-the-homepage-hero");
+		addGutterLines(".is-ditto-coverup");
+
+		this.setupDivider();
+		this.setupSlideUpCard();
+		this.setupMakeMagic();
+
+		const debouncedResizeHandler = debounce(() => {
+			this.setupDivider();
+		}, 100);
+
+		window.addEventListener("resize", debouncedResizeHandler);
+	},
+
+	setupDivider() {
+		this.dividerContainer = $('.is-make-magic-container');
+		this.divider = new DividerLine(this.dividerContainer[0], true, 50, 300);
+
+		const headingTop = this.dividerContainer.find('.kb-row-layout-wrap').offset().top;
+		const headingBottom = this.dividerContainer.find('.kb-row-layout-wrap:has(.is-magic-text)').offset().top;
+		const dividerOffset = ((headingBottom - headingTop));
+
+		this.divider.updatePosition(dividerOffset);
+	},
+
+	setupSlideUpCard() {
 		//
 		const timelineHome = gsap.timeline({});
-
+		
 		// ? first step of homepage animation is the slide-up card that flys up and off screen
-		let slideUpCard = $(".is-homepage-hero-slideup-card");
-
+		const slideUpCard = $(".is-homepage-hero-slideup-card");
+		
 		if (slideUpCard.length > 0) {
-			let shiftBy = $(slideUpCard).outerHeight() / 3;
-
+		
 			gsap.set(slideUpCard, {
 				y: -32,
 			});
-
-			// gsap.set(".is-your-mission-blurb", {
-			// 	"margin-top": `-${shiftBy}`,
-			// });
-
+		
 			//
 			timelineHome.addLabel("Hero").to(slideUpCard, {
 				y: "-200px",
@@ -55,120 +67,26 @@ gsap.registerPlugin(DrawSVGPlugin);
 				},
 			});
 		}
+	},
 
-		const MakeMagic = {
-			containerElement: undefined,
-			svgInstance: undefined,
-			pathInstance: undefined,
-			strokeWidth: 6,
-			containerElementWidth: undefined,
+	setupMakeMagic() {
 
-			init() {
-				if (!$(".is-make-magic-container").length) return;
+		gsap.fromTo(
+			".is-make-magic-container .is-magic-text",
+			{ autoAlpha: 0 },
+			{
+				autoAlpha: 1,
+				scrollTrigger: {
+					trigger: ".is-make-magic-container .is-magic-text",
+					start: "top 60%", // Trigger when the top of the .is-ditto-coverup element reaches the center of the viewport
+					end: "+=300", // Animation ends when the bottom of the element reaches the center
+					scrub: 1, // Smooth scrub animation
+				},
+			}
+		);
+	},
+}
 
-				const target = $('.is-make-magic-container svg');
-
-				if (target.length) {
-					$(target).remove();
-				}
-
-				this.cacheElements();
-				this.drawSVG();
-				this.drawLine();
-				this.animateLine();
-				this.animateMagic();
-			},
-
-			cacheElements() {
-				this.containerElement = document.querySelector(
-					".is-make-magic-container"
-				);
-				const rect = this.containerElement.getBoundingClientRect();
-				this.containerElementWidth = rect.width - 32; // Accurate width including padding/border
-			},
-
-			drawSVG() {
-
-				const offset = $($(this.containerElement).children()[0]).outerHeight();
-
-				this.svgInstance = SVG()
-					.addTo(this.containerElement)
-					.size(this.containerElementWidth, this.strokeWidth)
-					.addClass("is-motion-horizontal-line")
-					.css({ "max-width": "unset", margin: 0 });
-
-				if ($('body').hasClass('home')){
-					this.svgInstance.css('top', `${offset}px`);
-				}
-			},
-
-			drawLine() {
-				let edgePadding = 32;
-				let stroke = this.strokeWidth;
-
-				if ($(window).width() < 1025) {
-					edgePadding = 16;
-					stroke = 4;
-					this.containerElementWidth += 16;
-				}
-
-				const pathData = `M ${edgePadding},${stroke / 2} H ${
-					this.containerElementWidth
-				}`;
-
-				this.svgInstance
-					.path(pathData)
-					.addClass("is-line-path")
-					.stroke({
-						color: "var(--wp--preset--color--secondary)",
-						width: stroke,
-					})
-					.fill("none");
-			},
-
-			animateLine() {
-				gsap.fromTo(
-					".is-make-magic-container .is-line-path",
-					{ drawSVG: "0%" }, // Start fully hidden
-					{
-						drawSVG: "100%", // Draw to 100%
-						scrollTrigger: {
-							trigger: this.containerElement,
-							start: "top center", // Trigger when the top of the .is-ditto-coverup element reaches the center of the viewport
-							end: "+=300", // Animation ends when the bottom of the element reaches the center
-							scrub: 1, // Smooth scrub animation
-						},
-					}
-				);
-			},
-			animateMagic() {
-				if ($('body').hasClass('home')){
-					gsap.fromTo(
-						".is-make-magic-container .is-magic-text",
-						{ autoAlpha: 0 },
-						{
-							autoAlpha: 1,
-							scrollTrigger: {
-								trigger: ".is-make-magic-container .is-magic-text",
-								start: "top 60%", // Trigger when the top of the .is-ditto-coverup element reaches the center of the viewport
-								end: "+=300", // Animation ends when the bottom of the element reaches the center
-								scrub: 1, // Smooth scrub animation
-							},
-						}
-					);
-				}
-			},
-		};
-
-		MakeMagic.init();
-		// Handle window resizing globally
-		const handleResize = debounce(() => {
-			MakeMagic.init();
-		}, 0);
-
-		window.addEventListener("resize", handleResize);
-
-	});
-	//
-	//
-})(document, window, jQuery);
+if ($('body').hasClass('home')) {
+	Home.init();
+}

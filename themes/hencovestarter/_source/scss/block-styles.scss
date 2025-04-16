@@ -74,6 +74,25 @@ body,
 	}
 }
 
+.wpforms-container-full {
+	form label.wpforms-field-label {
+		font-weight: 400;
+		padding: 0 var(--wpforms-field-size-padding-h);
+
+		& span {
+			color: var(--wpforms-label-color);
+		}	
+	}
+
+	// Confirmation message
+	div.wpforms-confirmation-container-full {
+		background: var(--wp--preset--color--custom-accent-2-light) !important;
+		border: 2px solid var(--wp--preset--color--custom-accent-2-dark) !important;
+		border-radius: 10px !important;
+	}
+}
+
+
 //
 //
 //

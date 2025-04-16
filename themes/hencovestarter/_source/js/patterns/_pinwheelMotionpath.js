@@ -1,4 +1,4 @@
-import { debounce } from "../_utilities";
+import { debounce, setupBreakpoints } from "../_utilities";
 import { SVG } from "@svgdotjs/svg.js";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 (function (document, window, $) {
 	const PinWheel = {
+		isMobile: false,
 		section: null,
 		svgInstance: null,
 		svgContainer: null,
@@ -22,6 +23,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 			if (!this.section) return;
 
 			this.destroy();
+			this.isMobile = setupBreakpoints();
 			this._initializeSVG();
 			this._drawEllipsePaths();
 			this._initializeMotionPaths();
@@ -54,11 +56,11 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 		},
 
 		_drawEllipsePaths() {
-			let smallDiameter = this.svgHeight * 0.5;
+			let smallDiameter = this.svgHeight * 0.6;
 			let mediumDiameter = this.svgHeight * 0.8;
 			let largeDiameter = this.svgHeight;
 
-			if ($(window).width() <= 1024) {
+			if (this.isMobile) {
 				smallDiameter = this.svgHeight * 1.3;
 				mediumDiameter = this.svgHeight * 1.3;
 				largeDiameter = this.svgHeight * 1.3;
@@ -132,11 +134,6 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 			items.each(function (index) {
 				const totalItems = items.length;
 				const itemOffset = index / totalItems;
-				// let shiftBy = 80;
-
-				// if (index % 2 == 0) {
-				// 	shiftBy = 0;
-				// }
 
 				gsap.to(this, {
 					motionPath: {
@@ -161,7 +158,6 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 	// Handle window resize with debounce
 	const handleResize = debounce(() => {
-		PinWheel.destroy();
 		PinWheel.init();
 	}, 200);
 

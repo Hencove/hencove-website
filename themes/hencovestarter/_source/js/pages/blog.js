@@ -1,4 +1,4 @@
-import { throttle, debounce } from "../_utilities";
+import { throttle, debounce, addGutterLines } from "../_utilities";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { DividerLine } from "../experimental/_dividing-line";
@@ -11,18 +11,15 @@ gsap.registerPlugin(ScrollTrigger);
 	const body = document.querySelector("body");
 
 	if (body.classList.contains("page-id-80")) {
-		//
-		document.addEventListener(
-			"wp-block-kadence-query-result-count",
-			(event) => {
-				console.log("LOOK HERE");
-				console.log(event);
-			}
+		addGutterLines(
+			$("body.page-id-80 .entry-content > .alignfull:first-child")
 		);
+		addGutterLines($(".is-blog-page-posts-container"));
+
 		document.addEventListener("kb-query-loaded", (event) => {
 			$(".infinite-scroll-trigger").hide();
 			//	update our state
-			console.log("Query Loaded Event:", event);
+			// console.log("Query Loaded Event:", event);
 			ScrollTrigger.refresh();
 
 			//
@@ -37,16 +34,6 @@ gsap.registerPlugin(ScrollTrigger);
 		$(".infinite-scroll-trigger").show();
 	});
 
-	$("body.page-id-80 .entry-content > .alignfull:first-child").append(
-		'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-	);
-	$(".is-blog-page-posts-container").append(
-		'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-	);
-	// $("body.page-id-80 .entry-content > .alignfull:last-child").append(
-	// 	'<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-	// );
-	//
 	const b2bMenu = {
 		menuEl: undefined,
 		triggerEl: undefined,
@@ -81,6 +68,12 @@ gsap.registerPlugin(ScrollTrigger);
 			// Check for the 'category' query parameter
 			const category = urlParams.get("category");
 			const page = urlParams.get("pg");
+			const search = urlParams.get("144_search");
+
+			if (search) {
+				console.log(`Found 'search' query parameter: ${search}`);
+				this.menuEl.removeClass("is-shown");
+			}
 
 			if (page) {
 				console.log(`Found 'pg' query parameter: ${page}`);
@@ -148,13 +141,6 @@ gsap.registerPlugin(ScrollTrigger);
 					}
 				});
 
-			// Close the menu when the page scrolls
-			// $(window)
-			// 	.off("scroll.b2bMenu")
-			// 	.on("scroll.b2bMenu", () => {
-			// 		this.menuEl.removeClass("is-shown");
-			// 	});
-
 			// Close the menu and force a reload when a submit button inside the menu is clicked
 			this.menuEl
 				.off("click.b2bMenu", 'button[type="submit"]')
@@ -164,6 +150,34 @@ gsap.registerPlugin(ScrollTrigger);
 					this.menuEl.removeClass("is-shown");
 					location.reload(); // Force a page reload
 				});
+
+			// Close the menu and force a reload when a submit button inside the menu is clicked
+			this.menuEl
+				.off(".is-something-specific-search-trigger")
+				.on(".is-something-specific-search-trigger", (event) => {
+					event.stopPropagation();
+					event.preventDefault();
+					this.menuEl.removeClass("is-shown");
+					location.reload(); // Force a page reload
+				});
+
+			// Handle search input enter key press
+			document.addEventListener("kb-query-loaded", () => {
+				// Remove the shown class when Kadence finishes loading the query
+				this.menuEl.removeClass("is-shown");
+			});
+
+			// Also handle the initial form submission
+			this.menuEl
+				.off("submit", ".wp-block-kadence-query-filter-search input")
+				.on(
+					"submit",
+					".wp-block-kadence-query-filter-search input",
+					(event) => {
+						// Remove shown class when form is submitted
+						this.menuEl.removeClass("is-shown");
+					}
+				);
 		},
 	};
 
@@ -177,7 +191,6 @@ gsap.registerPlugin(ScrollTrigger);
 			);
 
 			if (!this.filterEl.length) {
-				////console.warn("Blog page filter not found.");
 				return;
 			}
 
@@ -186,18 +199,15 @@ gsap.registerPlugin(ScrollTrigger);
 			$(".wp-block-kadence-query").addClass("is-fully-loaded");
 			this._addSearchToMenu();
 		},
+
 		_addSearchToMenu: function () {
 			let buttonOptions = $(".buttons-options", this.menuEl);
 
 			let somethingSpecific =
 				'<div class="btn-inner-wrap"> \
-					<button class="kb-button button is-something-specific-search-trigger">\
-						something specific\
-					</button>\
+					<div class="is-something-specific-search-trigger"></div>\
 				</div>';
 
-			console.log(buttonOptions);
-			console.log(somethingSpecific);
 			$(buttonOptions).append(somethingSpecific);
 
 			let searchForm = $(
@@ -206,24 +216,11 @@ gsap.registerPlugin(ScrollTrigger);
 			);
 
 			let temp = $(searchForm).detach();
+			$(".is-something-specific-search-trigger").append(temp);
 
-			$(".is-something-specific-search-trigger").parent().append(temp);
-
-			let trigger = $(
-				".is-something-specific-search-trigger",
-				".is-the-b2b-menu"
-			);
-			$(trigger).on("click", function (event) {
-				//*
-				$(".wp-block-kadence-query-filter-search", ".is-the-b2b-menu")
-					.toggleClass("is-shown")
-					.css("width", "auto");
-				//*
-				$(this).hide();
-				// console.log(this);
-				// console.log(event.target);
-				// console.log(event.delegateTarget);
-			});
+			$(".wp-block-kadence-query-filter-search", ".is-the-b2b-menu")
+				.toggleClass("is-shown")
+				.css("width", "auto");
 		},
 	};
 
@@ -320,24 +317,21 @@ gsap.registerPlugin(ScrollTrigger);
 		b2bMenu._init();
 		blogPageMotion._init();
 
-		const containers = document.querySelectorAll(
-			".is-blog-page-posts-container"
-		);
-
-		// Store divider instances
-		const dividers = new Map();
-
 		const debouncedResizeHandler = debounce(() => {
-			containers.forEach((container) => {
-				// Recreate dividers on resize
-				dividers.set(container, new DividerLine(container, true, 20, 500));
-			});
+			divider = new DividerLine(
+				$(".is-blog-page-posts-container")[0],
+				true,
+				20,
+				500
+			);
 		}, 0);
 
-		containers.forEach((container) => {
-			// Create initial dividers
-			dividers.set(container, new DividerLine(container, true, 20, 500));
-		});
+		let divider = new DividerLine(
+			$(".is-blog-page-posts-container")[0],
+			true,
+			20,
+			500
+		);
 
 		// Handle window resize
 		window.addEventListener("resize", debouncedResizeHandler);

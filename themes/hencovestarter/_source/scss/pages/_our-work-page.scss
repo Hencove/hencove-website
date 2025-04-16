@@ -1,65 +1,36 @@
 @use "../libs/" as libs;
 
-// // moved here for pattern demo testing
-// .tab-item-group {
-
-// 	.grid-sizer,
-// 	.grid-item {
-// 		float: left; 
-// 		padding: 6px;
-// 		margin-top: 0;
-// 		margin-left: 0;
-// 		margin-right: 0;
-// 		margin-bottom: 0;
-// 		max-width: unset;
-
-// 		img {
-// 			width: 100%;
-// 		}
-// 	}
-
-// 	@include libs.media(">=desktop") {
-// 		.grid-sizer,
-// 		.grid-item { 
-// 			width: 16.67%; 
-// 		}
-// 		.grid-item-width-2 {
-// 			width: 33.33%;
-// 		}
-// 		.grid-item-width-3 {
-// 			width: 50%;
-// 		}
-// 		.grid-item-width-4 {
-// 			width: 66.66%;
-// 		}	
-// 	}
-
-// 	@include libs.media("<desktop") {
-// 		.grid-sizer,
-// 		.grid-item, // 1x1
-// 		.grid-item.grid-item-height-2, // 1x2
-// 		.grid-item.grid-item-width-2  { // 2x1
-// 			width: 50%;
-// 		}
-
-// 		.grid-item-width-2.grid-item-height-2, // 2x2
-// 		.grid-item-width-2.grid-item-height-3, // 2x3
-// 		.grid-item-width-2.grid-item-height-4, // 2x4
-// 		.grid-item-width-3.grid-item-height-2, // 3x2
-// 		.grid-item-width-3.grid-item-height-3, // 3x3
-// 		.grid-item-width-3.grid-item-height-4, // 3x4
-// 		.grid-item-width-4.grid-item-height-2, // 4x2
-// 		.grid-item-width-4.grid-item-height-3, // 4x3
-// 		.grid-item-width-4.grid-item-height-4 { // 4x4
-// 			width: 100%;
-// 		}
-// 	}
-// }
-
 // our-work
 body.page-id-79 .entry-content {
-
 	.is-the-our-work-hero {
+		figure video:hover {
+			$angle: 10deg;
+			$scale: 0;
+
+			@keyframes wiggle {
+				0% {
+					transform: rotate(0deg) scale(1);
+				}
+				20% {
+					transform: rotate($angle * 0.8) scale(1 + $scale * 0.6);
+				}
+				40% {
+					transform: rotate(-$angle * 0.9) scale(1 + $scale * 0.9);
+				}
+				60% {
+					transform: rotate($angle * 0.5) scale(1 + $scale * 0.7);
+				}
+				80% {
+					transform: rotate(-$angle * 0.2) scale(1 + $scale * 0.3);
+				}
+				100% {
+					transform: rotate(0deg) scale(1);
+				}
+			}
+
+			animation: wiggle 1s ease-in-out infinite;
+			cursor: pointer;
+		}
 
 		@include libs.media(">=desktop") {
 			figure {
@@ -67,22 +38,25 @@ body.page-id-79 .entry-content {
 				margin: 0;
 
 				video {
+					position: relative;
+					z-index: 2;
 					width: 10%;
 					max-width: 150px;
-					margin-bottom: -80px;
+					// margin-bottom: -50px;
+					margin-bottom: -75px;
+					animation: none;
 				}
 			}
-			
-			$wordHeight: 150px;
+
+			$wordHeight: 180px;
 
 			#heroLeft,
 			#heroRight {
-				position: relative; /* Required for proper placement */
-				overflow: hidden; /* Hide non-visible words */
-				height: $wordHeight; /* Height of one word */
-				width: 100%; /* Full width for alignment */
-				border-bottom: 2px solid var(--wp--preset--color--contrast);
-				// border: 1px solid red;
+				position: relative;
+				overflow: hidden;
+				height: $wordHeight;
+				width: 100%;
+				border-bottom: 2px solid var(--wp--preset--color--custom-accent-4-dark);
 			}
 
 			#heroLeft {
@@ -91,14 +65,14 @@ body.page-id-79 .entry-content {
 			#heroRight {
 				margin-right: var(--wp--style--root--padding-right);
 			}
-			
+
 			.wordListContainer {
 				display: flex;
 				flex-direction: column; /* Stack words vertically */
 				transform: translateY(0); /* Default transform */
 				transition: transform 0.3s ease; /* Smooth scrolling to the selected word */
 			}
-			
+
 			#heroLeft h1,
 			#heroRight h1 {
 				text-align: center;
@@ -119,7 +93,7 @@ body.page-id-79 .entry-content {
 			figure {
 				margin-block-start: 0;
 				margin: 0;
-			
+
 				video {
 					width: 15%;
 					max-width: 150px;
@@ -129,8 +103,8 @@ body.page-id-79 .entry-content {
 				flex-wrap: wrap;
 				gap: var(--wp--preset--spacing--xx-small);
 			}
-			
-			$wordHeight: 70px;
+
+			$wordHeight: 65px;
 			$wordWidth: 700px;
 
 			#heroLeft,
@@ -141,19 +115,19 @@ body.page-id-79 .entry-content {
 				width: 91%; /* Full width for alignment */
 				// border: 1px solid red;
 			}
-			
+
 			.wordListContainer {
 				display: flex;
 				flex-direction: row; /* Stack words vertically */
 				transform: translateX(0); /* Default transform */
 				transition: transform 0.3s ease; /* Smooth scrolling to the selected word */
 			}
-			
-			h1 {
+
+			#heroLeft h1,
+			#heroRight h1 {
 				text-align: center;
 				height: $wordHeight; /* Match container height */
 				min-width: 100%;
-				line-height: $wordHeight; /* Center text vertically */
 				@include libs.rfs(4rem);
 			}
 			/*
@@ -170,61 +144,61 @@ body.page-id-79 .entry-content {
 				}
 			}
 		}
-	//
 	}
-	
+
 	.is-the-detached-tabs-container {
-		.tab-item-group {
+		.kt-tabs-wrap .wp-block-kadence-tab {
+			padding: 0;
 
-			.grid-sizer,
-			.grid-item {
-				float: left; 
-				padding: 6px;
-				margin-top: 0;
-				margin-left: 0;
-				margin-right: 0;
-				margin-bottom: 0;
-				max-width: unset;
+			.our-work-grid-container {
+				container-type: inline-size;
 
-				img {
-					width: 100%;
-				}
-			}
+				.our-work-grid {
+					--columns: 6;
+					--gutters: 5;
+					--gutter-size: 1em;
+					display: grid;
+					grid-template-columns: repeat(
+						var(--columns),
+						calc(
+							100cqi / var(--columns) - var(--gutter-size) * var(--gutters) /
+								var(--columns)
+						)
+					);
+					grid-auto-rows: calc(
+						100cqi / var(--columns) - var(--gutter-size) * var(--gutters) /
+							var(--columns)
+					);
+					gap: var(--gutter-size) !important;
+					padding: 0 !important;
 
-			@include libs.media(">=desktop") {
-				.grid-sizer,
-				.grid-item { 
-					width: 16.67%; 
-				}
-				.grid-item-width-2 {
-					width: 33.33%;
-				}
-				.grid-item-width-3 {
-					width: 50%;
-				}
-				.grid-item-width-4 {
-					width: 66.66%;
-				}	
-			}
+					.wp-block-video {
+						display: flex;
 
-			@include libs.media("<desktop") {
-				.grid-sizer,
-				.grid-item, // 1x1
-				.grid-item.grid-item-height-2, // 1x2
-				.grid-item.grid-item-width-2  { // 2x1
-					width: 50%;
+						video {
+							object-fit: cover;
+						}
+					}
 				}
 
-				.grid-item-width-2.grid-item-height-2, // 2x2
-				.grid-item-width-2.grid-item-height-3, // 2x3
-				.grid-item-width-2.grid-item-height-4, // 2x4
-				.grid-item-width-3.grid-item-height-2, // 3x2
-				.grid-item-width-3.grid-item-height-3, // 3x3
-				.grid-item-width-3.grid-item-height-4, // 3x4
-				.grid-item-width-4.grid-item-height-2, // 4x2
-				.grid-item-width-4.grid-item-height-3, // 4x3
-				.grid-item-width-4.grid-item-height-4 { // 4x4
-					width: 100%;
+				@include libs.media("<desktop") {
+					.our-work-grid {
+						--columns: 2;
+						--gutters: 1;
+						--gutter-size: 0.5em;
+						grid-auto-rows: calc(
+							75cqi / var(--columns) - var(--gutter-size) * var(--gutters) /
+								var(--columns)
+						);
+						grid-auto-flow: dense;
+
+						.mobile-grid-item-full-width {
+							grid-column: span 2;
+						}
+						.mobile-grid-item-half-width {
+							grid-column: span 1;
+						}
+					}
 				}
 			}
 		}
@@ -250,17 +224,21 @@ body.page-id-79 .entry-content {
 			position: absolute;
 			left: 50%;
 			transform: translateX(-50%);
-			border-radius: 16px;
+			border-radius: var(--smallBoxRadius);
 			padding: 32px;
 			width: 100%;
 			background-color: var(--wp--preset--color--secondary-bright);
 			z-index: 4;
-			transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+			transition:
+				opacity 0.3s ease,
+				visibility 0s linear 0.3s;
 
 			&.is-shown {
 				visibility: visible;
 				opacity: 1;
-				transition: opacity 0.3s ease, visibility 0s linear 0s;
+				transition:
+					opacity 0.3s ease,
+					visibility 0s linear 0s;
 			}
 
 			@include libs.media("<desktop") {
@@ -335,10 +313,15 @@ body.page-id-79 .entry-content {
 			}
 			//
 		}
-
-
 	}
+
 	.is-collaboration-container {
+		h4 {
+			align-content: flex-end;
+		}
+		// h6 {
+		// 	align-content: flex-start;
+		// }
 		.gutterLineCoverUp {
 			background-color: var(--wp--preset--color--custom-accent-4-light);
 
@@ -347,7 +330,6 @@ body.page-id-79 .entry-content {
 			}
 		}
 		@include libs.media(">=desktop") {
-
 			.divider-svg {
 				display: none;
 			}
@@ -357,7 +339,6 @@ body.page-id-79 .entry-content {
 					stroke: var(--wp--preset--color--custom-accent-4-light);
 				}
 			}
-			
 		}
 		@include libs.media("<desktop") {
 			.hencurve-anchors-container {
@@ -373,10 +354,10 @@ body.page-id-79 .entry-content {
 		}
 	}
 
-    .is-two-team-container {
+	.is-two-team-container {
 		margin-block-start: 0;
 
-		.divider-svg{
+		.divider-svg {
 			margin-block-start: 0;
 
 			path {
@@ -395,10 +376,9 @@ body.page-id-79 .entry-content {
 
 		@include libs.media(">=desktop") {
 		}
-			
+
 		@include libs.media("<desktop") {
 			min-height: unset !important;
-			
 		}
 	}
 

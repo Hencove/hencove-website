@@ -1,27 +1,75 @@
 import { gsap } from "gsap";
-import { debounce } from "../../_utilities";
+import { debounce, setupBreakpoints, addGutterLines } from "../../_utilities";
+import { SVG } from "@svgdotjs/svg.js";
 
 export const AboutHero = {
+	isMobile: false,
+	container: null,
 	init() {
 		// Bail early if the hero section doesn't exist
 		if (!$(".is-about-us-hero").length) return;
+		this.container = $(".is-about-us-hero");
 
 		// Add gutter lines (always runs, even on mobile)
-		this.addGutterLines();
+		addGutterLines($(".is-about-us-hero"));
+		addGutterLines($(".is-team-grid-outer-container"));
 
-		// Setup GSAP MatchMedia for responsive handling
-		this.setupBreakpoints();
+		this.isMobile = setupBreakpoints();
+		this.destroy();
+		if (!this.isMobile) {
+			this.drawSVG();
+			this.positionBee();
+		}
 
-		// Listen for the custom "pathReady" event from the SVG-drawing app
-		this.bindPathReadyListener();
+		const debouncedResizeHandler = debounce(() => {
+			this.isMobile = setupBreakpoints();
+			this.destroy();
+			if (!this.isMobile) {
+				this.drawSVG();
+				this.positionBee();
+			}
+		}, 200);
+
+		window.addEventListener("resize", debouncedResizeHandler);
 	},
 
-	addGutterLines() {
-		const gutterHTML = `
-			<div class="gutterLineCoverUp left"></div>
-			<div class="gutterLineCoverUp right"></div>
-		`;
-		$(".is-about-us-hero, .is-team-grid-outer-container").append(gutterHTML);
+	drawSVG() {
+		const heading = this.container.find(".wp-block-heading");
+
+		let siteMargin = 32;
+		let margin = 32;
+		let strokeWidth = 6;
+
+		const radius = heading.outerHeight() / 2;
+		const startY = heading.offset().top - margin;
+
+		const startX = siteMargin;
+		const endX = window.innerWidth - siteMargin;
+
+		let shapeData = `M ${startX},${startY} \n`;
+		shapeData += `H ${heading.outerWidth(true) + heading.offset().left - radius / 2} \n`;
+
+		shapeData += `a ${radius},${radius} 90 0 1 ${radius},${radius} \n`;
+		shapeData += `a ${radius},${radius} 90 0 0 ${radius},${radius} \n`;
+
+		shapeData += `H ${endX} \n`;
+
+		let svgInstance = SVG()
+			.addTo(this.container[0])
+			.size("100%", "100%")
+			.addClass("hencurve");
+
+		svgInstance
+			.path(shapeData)
+			.stroke({
+				color: "var(--wp--preset--color--primary)",
+				width: strokeWidth,
+			})
+			.fill("none");
+	},
+
+	destroy() {
+		$("svg.hencurve").remove();
 	},
 
 	positionBee() {
@@ -29,67 +77,26 @@ export const AboutHero = {
 		const heroImages = $(".wp-block-image", ".has-nested-images");
 		const bee = heroImages[2];
 		const pathElement = document.querySelector(
-			".is-about-us-hero .hencurve-anchors-svg path"
+			".is-about-us-hero .hencurve path"
 		);
+		const position = 0.65;
 
 		// Bail early if no bee image or path element exists
 		if (!bee || !pathElement) return;
 
-		// Snap the bee to the updated path
-		gsap.set(bee, {
-			motionPath: {
-				path: pathElement,
-				align: pathElement,
-				alignOrigin: [0.5, 0.5],
-				start: 0.55,
-				end: 0.55,
-			},
-		});
-	},
-
-	handleResize() {
-		// Ensure path and bee exist before repositioning
-		const pathElement = document.querySelector(
-			".is-about-us-hero .hencurve-anchors-svg path"
-		);
-		const heroImages = $(".wp-block-image", ".has-nested-images");
-		const bee = heroImages[2];
-
-		if (!bee || !pathElement) return;
-
-		this.positionBee();
-	},
-
-	bindPathReadyListener() {
-		// Listen for the custom "pathReady" event from the SVG-drawing app
-		document.addEventListener("hencurvesPathReady", (event) => {
-			console.log("Path is ready. Repositioning bee...");
-			this.positionBee(); // Snap the bee to the path when it's ready
-		});
-	},
-
-	setupBreakpoints() {
-		const mm = gsap.matchMedia();
-		const breakPoint = 1024;
-
-		// Mobile-specific logic
-		mm.add(`(max-width: ${breakPoint}px)`, () => {
-			// Find the bee image
-			const heroImages = $(".wp-block-image", ".has-nested-images");
-			const bee = heroImages[2];
-
-			// Bail early if the bee doesn't exist
-			if (!bee) return;
-
-			// Remove any inline styles applied to the bee
-			bee.style = ""; // Reset all inline styles
-			console.log("Removed inline styles from the bee for mobile breakpoint");
-		});
-
-		// Desktop-specific logic
-		mm.add(`(min-width: ${breakPoint + 1}px)`, () => {
-			this.positionBee(); // Ensure the bee is positioned on desktop
-			console.log("Entered desktop breakpoint and positioned the bee");
-		});
+		if (this.isMobile) {
+			bee.style = "";
+		} else {
+			// Snap the bee to the updated path
+			gsap.set(bee, {
+				motionPath: {
+					path: pathElement,
+					align: pathElement,
+					alignOrigin: [0.5, 0.5],
+					start: position,
+					end: position,
+				},
+			});
+		}
 	},
 };

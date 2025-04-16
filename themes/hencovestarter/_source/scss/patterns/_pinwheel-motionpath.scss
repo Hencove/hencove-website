@@ -35,6 +35,9 @@
 			margin-right: unset !important;
 			min-height: 100vw;
 		}
+		svg {
+			z-index: -1;
+		}
 	}
 
 	// ?	we can't display:none, so we have to just move this off screen

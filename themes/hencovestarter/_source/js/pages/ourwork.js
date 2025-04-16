@@ -1,30 +1,41 @@
-import { divider } from "../experimental/_dividing-line";
-import { debounce } from "../_utilities";
+import { debounce, addGutterLines, setupBreakpoints, handleHEVC } from "../_utilities";
 import { ourworkHero } from "./ourwork/ourwork-hero";
 import { ourworkTabs } from "./ourwork/ourwork-tabs";
 import { DividerLine } from "../experimental/_dividing-line";
-
 //
 export const App = {
 
+    twoTeamDivider: null,
+    collaborationDivider: null,
+    heroDivider: null,
+    isMobile: false,
+
 	init() {
-		document.addEventListener("DOMContentLoaded", () => {
 
-            // Store divider instances
-            this.twoTeamDivider = null;
-            this.collaborationDivider = null;
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            this.isMobile = setupBreakpoints();
+            
+            window.addEventListener("load", () => {
+                this.setupHero();
+                this.setupDividers();
+                handleHEVC('.is-the-our-work-hero');
+                handleHEVC('.is-the-detached-tabs-container');
+            });
 
-            this.setupHero();
             this.setupTabs();
             this.setupTwoTeam();
             this.setupCollaboration();
-            this.setupSwiper();
 
             // Adjust stuff on resize
             const debouncedResizeHandler = debounce(() => {
                 // Recreate dividers on resize
+                this.isMobile = setupBreakpoints();
+
                 this.setupDividers();
-            }, 0);
+                this.adjustRowHeights($('.is-collaboration-container'), 'h4');
+            }, 100);
 
             
             // Handle window resize
@@ -33,9 +44,7 @@ export const App = {
 	},
 
     setupHero() {
-        $(".is-the-our-work-hero").append(
-            '<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-        );
+        addGutterLines(".is-the-our-work-hero");
         ourworkHero.init();
     },
 
@@ -44,6 +53,16 @@ export const App = {
     },
 
     setupDividers() {
+
+        // Hero divider
+        this.heroDivider = new DividerLine($('.is-the-our-work-hero')[0], false, 5, 0);
+        let heroOffset = 0;
+        if (!this.isMobile) {
+            heroOffset = $('.heroWord').offset().top;
+        } else {
+            heroOffset = $('video').offset().top + $('video').outerHeight() * 0.5;
+        }
+        this.heroDivider.updatePosition(heroOffset);
 
         // Collaboration divider
         this.collaborationDivider = new DividerLine($(".is-collaboration-container")[0], true, 10, 1000);
@@ -59,47 +78,72 @@ export const App = {
     },
 
     setupCollaboration() {
-        $(".is-collaboration-container").append(
-            '<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-        );
-        this.setupDividers();
+        addGutterLines(".is-collaboration-container");
+        // this.setupDividers();
+        this.adjustRowHeights($('.is-collaboration-container'), 'h4');
+        // this.adjustRowHeights($('.is-collaboration-container'), 'h6');
     },
 
     setupTwoTeam() {
-        $(".is-two-team-container").append(
-            '<div class="gutterLineCoverUp left"></div><div class="gutterLineCoverUp right"></div>'
-        );
-        this.setupDividers();
+        addGutterLines(".is-two-team-container");
+        // this.setupDividers();
     },
 
-    setupSwiper() {
-        let queryContainer = $(
-            ".featured-blogs-swiper .wp-block-kadence-query-card"
-        );
-        let items = $(".kb-query-item", queryContainer)
-            .addClass("swiper-slide")
-            .detach();
+    // borrowed this from what I wrote for Haverford. It's more complex than it needs to be for this, but it works
+    // ideally, this would work for all items in the column, not just the h4
+    adjustRowHeights(container, selector) {
+        if (!container.length) {
+            return;
+        }
 
-        $(".swiper-wrapper", ".related-posts-slider-rebuilt").append(items);
+        const columnsContainer = container
+            .find(".kt-row-column-wrap")
+            .children(".wp-block-kadence-column");
 
-        const swiper = new Swiper(".swiper", {
-            speed: 1000,
-            loop: true,
-            autoplay: {
-                delay: 5000,
-            },
+        let rows = [[]];
 
-            // If we need pagination
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
+        // Reset all heading heights before recalculating
+        columnsContainer.find(selector).css("min-height", "auto");
 
-            // Navigation arrows
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
+        columnsContainer.each(function (i, col) {
+            const heading = $(col).find(selector);
+
+            if (heading.length === 0 || !heading.is(":visible")) return; // Ensure title exists and is visible
+
+            if (i !== 0) {
+                const prevColRowIndex = columnsContainer
+                    .eq(i - 1)
+                    .find(selector)
+                    .offset().top;
+                const rowIndex = heading.offset().top;
+                const newRow = rowIndex > prevColRowIndex;
+
+                if (newRow) {
+                    rows.push([]); // Start a new row array
+                }
+            }
+
+            // Push current column into the latest row array
+            rows[rows.length - 1].push(col);
+        });
+
+        // Loop through each row, find max height, and apply it to all items in that row
+        rows.forEach((row) => {
+            let maxHeight = 0;
+
+            // Determine the max height in the row
+            row.forEach((col) => {
+                const heading = $(col).find(selector);
+                const headingHeight = heading.outerHeight();
+                maxHeight = Math.max(maxHeight, headingHeight);
+            });
+
+            // Apply max height to all elements in the row
+            row.forEach((col) => {
+                $(col)
+                    .find(selector)
+                    .css("min-height", maxHeight + "px");
+            });
         });
     },
 };
