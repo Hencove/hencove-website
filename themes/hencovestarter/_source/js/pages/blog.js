@@ -11,7 +11,9 @@ gsap.registerPlugin(ScrollTrigger);
 	const body = document.querySelector("body");
 
 	if (body.classList.contains("page-id-80")) {
-		addGutterLines($("body.page-id-80 .entry-content > .alignfull:first-child"));
+		addGutterLines(
+			$("body.page-id-80 .entry-content > .alignfull:first-child")
+		);
 		addGutterLines($(".is-blog-page-posts-container"));
 
 		document.addEventListener("kb-query-loaded", (event) => {
@@ -66,6 +68,12 @@ gsap.registerPlugin(ScrollTrigger);
 			// Check for the 'category' query parameter
 			const category = urlParams.get("category");
 			const page = urlParams.get("pg");
+			const search = urlParams.get("144_search");
+
+			if (search) {
+				console.log(`Found 'search' query parameter: ${search}`);
+				this.menuEl.removeClass("is-shown");
+			}
 
 			if (page) {
 				console.log(`Found 'pg' query parameter: ${page}`);
@@ -133,13 +141,6 @@ gsap.registerPlugin(ScrollTrigger);
 					}
 				});
 
-			// Close the menu when the page scrolls
-			// $(window)
-			// 	.off("scroll.b2bMenu")
-			// 	.on("scroll.b2bMenu", () => {
-			// 		this.menuEl.removeClass("is-shown");
-			// 	});
-
 			// Close the menu and force a reload when a submit button inside the menu is clicked
 			this.menuEl
 				.off("click.b2bMenu", 'button[type="submit"]')
@@ -149,6 +150,34 @@ gsap.registerPlugin(ScrollTrigger);
 					this.menuEl.removeClass("is-shown");
 					location.reload(); // Force a page reload
 				});
+
+			// Close the menu and force a reload when a submit button inside the menu is clicked
+			this.menuEl
+				.off(".is-something-specific-search-trigger")
+				.on(".is-something-specific-search-trigger", (event) => {
+					event.stopPropagation();
+					event.preventDefault();
+					this.menuEl.removeClass("is-shown");
+					location.reload(); // Force a page reload
+				});
+
+			// Handle search input enter key press
+			document.addEventListener("kb-query-loaded", () => {
+				// Remove the shown class when Kadence finishes loading the query
+				this.menuEl.removeClass("is-shown");
+			});
+
+			// Also handle the initial form submission
+			this.menuEl
+				.off("submit", ".wp-block-kadence-query-filter-search input")
+				.on(
+					"submit",
+					".wp-block-kadence-query-filter-search input",
+					(event) => {
+						// Remove shown class when form is submitted
+						this.menuEl.removeClass("is-shown");
+					}
+				);
 		},
 	};
 
@@ -170,7 +199,7 @@ gsap.registerPlugin(ScrollTrigger);
 			$(".wp-block-kadence-query").addClass("is-fully-loaded");
 			this._addSearchToMenu();
 		},
-		
+
 		_addSearchToMenu: function () {
 			let buttonOptions = $(".buttons-options", this.menuEl);
 
@@ -190,8 +219,8 @@ gsap.registerPlugin(ScrollTrigger);
 			$(".is-something-specific-search-trigger").append(temp);
 
 			$(".wp-block-kadence-query-filter-search", ".is-the-b2b-menu")
-					.toggleClass("is-shown")
-					.css("width", "auto");
+				.toggleClass("is-shown")
+				.css("width", "auto");
 		},
 	};
 
@@ -288,24 +317,21 @@ gsap.registerPlugin(ScrollTrigger);
 		b2bMenu._init();
 		blogPageMotion._init();
 
-		const containers = document.querySelectorAll(
-			".is-blog-page-posts-container"
-		);
-
-		// Store divider instances
-		const dividers = new Map();
-
 		const debouncedResizeHandler = debounce(() => {
-			containers.forEach((container) => {
-				// Recreate dividers on resize
-				dividers.set(container, new DividerLine(container, true, 20, 500));
-			});
+			divider = new DividerLine(
+				$(".is-blog-page-posts-container")[0],
+				true,
+				20,
+				500
+			);
 		}, 0);
 
-		containers.forEach((container) => {
-			// Create initial dividers
-			dividers.set(container, new DividerLine(container, true, 20, 500));
-		});
+		let divider = new DividerLine(
+			$(".is-blog-page-posts-container")[0],
+			true,
+			20,
+			500
+		);
 
 		// Handle window resize
 		window.addEventListener("resize", debouncedResizeHandler);
