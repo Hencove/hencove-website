@@ -1,15 +1,15 @@
 # Deploy to WP Engine Dev environment
 # https://wpengine.com/support/environments/#About_Environments
-name: Deploy to dev
+name: Deploy to prod
 on:
   push:
     branches:
-      - dev
+      - main
 jobs:
-  Deploy-to-WP-Engine-Dev:
+  Deploy-to-WP-Engine-Production:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Preparing to deploy to WP Engine dev"
+      - run: echo "Preparing to deploy to WP Engine prod"
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Use Node.js
@@ -61,7 +61,7 @@ jobs:
           WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
           # Destination to deploy to WPE
           # Change to your environment name
-          WPE_ENV: hencovedev
+          WPE_ENV: hencove
 
           # Deploy options
 
