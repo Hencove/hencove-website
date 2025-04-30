@@ -21,16 +21,3 @@
 }
 
 
-//
-// ?   Magic Padding for allowing elements to 
-// ?   touch one side of the screen while still aligning with site width
-//
-
-/* Magic Padding */
-.padding-magic-left {
-	padding-left: max(var(--wp--style--root--padding-left), calc((100vw - var(--wp--style--global--wide-size)) / 2));
-}
-
-.padding-magic-right {
-	padding-right: max(var(--wp--style--root--padding-left), calc((100vw - var(--wp--style--global--wide-size)) / 2));
-}
