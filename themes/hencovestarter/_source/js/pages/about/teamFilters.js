@@ -103,7 +103,7 @@ const TeamClipData = {
 	},
 	3365: {
 		name: "Erin Roddy",
-		clipURL: `${window.location.origin}/wp-content/uploads/2025/05/erin.webm`,
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/05/erin-2.webm`,
 	}
 };
 
