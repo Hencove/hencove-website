@@ -101,6 +101,10 @@ const TeamClipData = {
 		name: "Jonathan Bell",
 		clipURL: `${window.location.origin}/wp-content/uploads/2025/03/jonathan.webm`,
 	},
+	3367: {
+		name: "Erin Roddy",
+		clipURL: `${window.location.origin}/wp-content/uploads/2025/05/erin-2.webm`,
+	}
 };
 
 //
